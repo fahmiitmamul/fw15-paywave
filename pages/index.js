@@ -54,7 +54,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex gap-32 justify-center w-full h-[300px] bg-white">
+      <div className="flex gap-32 justify-center w-full h-[300px] bg-blue-50">
         <Image src={Partner1} alt="partner-2"></Image>
         <Image src={Partner2} alt="partner-3"></Image>
         <Image src={Partner3} alt="partner-1"></Image>
