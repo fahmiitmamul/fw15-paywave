@@ -2,26 +2,14 @@ import React from 'react'
 import Image from 'next/image'
 import PhoneLogin from '../../public/phone-login.svg'
 import Head from 'next/head'
-import Link from 'next/link'
-import Lock from '../../public/lock.svg'
 import Mail from '../../public/mail.svg'
 import { Formik } from 'formik'
-import { RxEyeClosed } from 'react-icons/rx'
-import { RxEyeOpen } from 'react-icons/rx'
-import { useState } from 'react'
 import * as Yup from 'yup'
 
-export default function Login() {
-  const [open, setOpen] = useState(false)
-
+export default function ForgotPassword() {
   const validationSchema = Yup.object({
-    email: Yup.string().required('Email is required !'),
-    password: Yup.string().required('Password is required !'),
+    code: Yup.string().required('Code is required !'),
   })
-
-  function setInput() {
-    setOpen(!open)
-  }
 
   function doSubmit(values) {
     alert(JSON.stringify(values))
@@ -30,7 +18,7 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>Login</title>
+        <title>Forgot Password</title>
       </Head>
       <div className="flex flex-auto w-full bg-primary bg-home bg-no-repeat bg-cover bg-bottom">
         <div className="hidden lg:flex flex-col gap-10 flex-auto w-1/2 justify-center items-center">
@@ -60,7 +48,7 @@ export default function Login() {
               that for you!
             </div>
             <Formik
-              initialValues={{ email: '', password: '' }}
+              initialValues={{ code: '' }}
               validationSchema={validationSchema}
               onSubmit={doSubmit}
             >
@@ -79,71 +67,26 @@ export default function Login() {
                       <div className="flex flex-col gap-8">
                         <div className="max-w-lg relative">
                           <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            value={values.email}
+                            type="text"
+                            name="code"
+                            id="code"
+                            value={values.code}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             className={`border-b-2 border-gray-300 focus:border-indigo-500 focus:outline-none w-full transition duration-300 ease-in-out px-8 py-1 ${
-                              touched.email &&
-                              errors.email &&
-                              'border-b-red-500'
+                              touched.code && errors.code && 'border-b-red-500'
                             }`}
-                            placeholder="Enter your email"
+                            placeholder="Enter your code"
                           ></input>
                           <Image src={Mail} alt="" className="absolute top-1" />
-                          {errors.email && touched.email && (
-                            <label htmlFor="email" className="label">
+                          {errors.code && touched.code && (
+                            <label htmlFor="code" className="label">
                               <span className="label-text-alt text-error">
-                                {errors.email}
+                                {errors.code}
                               </span>
                             </label>
                           )}
                         </div>
-                        <div className="max-w-lg relative">
-                          <input
-                            type={open ? 'password' : 'text'}
-                            name="password"
-                            id="password"
-                            value={values.password}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            className={`border-b-2 border-gray-300 focus:border-indigo-500 focus:outline-none w-full transition duration-300 ease-in-out px-8 py-2 ${
-                              touched.password &&
-                              errors.password &&
-                              'border-b-red-500'
-                            }`}
-                            placeholder="Enter password"
-                          ></input>
-                          <Image src={Lock} alt="" className="absolute top-2" />
-                          <button
-                            onClick={setInput}
-                            type="button"
-                            className="absolute top-3 right-4"
-                          >
-                            {open ? (
-                              <RxEyeClosed color="gray" size={20} />
-                            ) : (
-                              <RxEyeOpen color="gray" size={20} />
-                            )}
-                          </button>
-                          {errors.password && touched.password && (
-                            <label htmlFor="password" className="label">
-                              <span className="label-text-alt text-error">
-                                {errors.password}
-                              </span>
-                            </label>
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex justify-end">
-                        <Link
-                          href="/auth/forgot-password"
-                          className="text-primary hover:font-bold"
-                        >
-                          Forgot Password ?
-                        </Link>
                       </div>
                     </div>
                     <div>
@@ -152,19 +95,13 @@ export default function Login() {
                         className="btn btn-primary normal-case max-w-lg w-full text-white shadow-2xl"
                         disabled={isSubmitting}
                       >
-                        Login
+                        Send Link
                       </button>
                     </div>
                   </form>
                 )
               }}
             </Formik>
-            <div className="text-center max-w-lg">
-              Don&apos;t have an account ? Let&apos;s{' '}
-              <Link href="/auth/register" className="text-primary">
-                Sign Up
-              </Link>
-            </div>
           </div>
         </div>
       </div>

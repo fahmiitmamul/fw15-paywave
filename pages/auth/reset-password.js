@@ -2,24 +2,22 @@ import React from 'react'
 import Image from 'next/image'
 import PhoneLogin from '../../public/phone-login.svg'
 import Head from 'next/head'
-import * as Yup from 'yup'
-import Link from 'next/link'
 import Lock from '../../public/lock.svg'
 import Mail from '../../public/mail.svg'
 import { Formik } from 'formik'
 import { RxEyeClosed } from 'react-icons/rx'
 import { RxEyeOpen } from 'react-icons/rx'
 import { useState } from 'react'
-import Person from '../../public/person.svg'
+import * as Yup from 'yup'
 
-export default function Register() {
+export default function ResetPassword() {
   const [open, setOpen] = useState(false)
 
   const validationSchema = Yup.object({
-    firstName: Yup.string().required('First name is required !'),
-    lastName: Yup.string().required('Last name is required !'),
+    code: Yup.string().required('Code is required !'),
     email: Yup.string().required('Email is required !'),
     password: Yup.string().required('Password is required !'),
+    confirmPassword: Yup.string().required('Confirm Password is required !'),
   })
 
   function setInput() {
@@ -29,10 +27,11 @@ export default function Register() {
   function doSubmit(values) {
     alert(JSON.stringify(values))
   }
+
   return (
     <>
       <Head>
-        <title>Register</title>
+        <title>Reset Password</title>
       </Head>
       <div className="flex flex-auto w-full bg-primary bg-home bg-no-repeat bg-cover bg-bottom">
         <div className="hidden lg:flex flex-col gap-10 flex-auto w-1/2 justify-center items-center">
@@ -63,10 +62,10 @@ export default function Register() {
             </div>
             <Formik
               initialValues={{
-                firstName: '',
-                lastName: '',
+                code: '',
                 email: '',
                 password: '',
+                confirmPassword: '',
               }}
               validationSchema={validationSchema}
               onSubmit={doSubmit}
@@ -87,55 +86,21 @@ export default function Register() {
                         <div className="max-w-lg relative">
                           <input
                             type="text"
-                            name="firstName"
-                            id="firstName"
-                            value={values.firstName}
+                            name="code"
+                            id="code"
+                            value={values.code}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             className={`border-b-2 border-gray-300 focus:border-indigo-500 focus:outline-none w-full transition duration-300 ease-in-out px-8 py-1 ${
-                              touched.firstName &&
-                              errors.firstName &&
-                              'border-b-red-500'
+                              touched.code && errors.code && 'border-b-red-500'
                             }`}
-                            placeholder="Enter your First Name"
+                            placeholder="Code"
                           ></input>
-                          <Image
-                            src={Person}
-                            alt=""
-                            className="absolute top-1"
-                          />
-                          {errors.firstName && touched.firstName && (
-                            <label htmlFor="firstName" className="label">
+                          <Image src={Mail} alt="" className="absolute top-1" />
+                          {errors.code && touched.code && (
+                            <label htmlFor="code" className="label">
                               <span className="label-text-alt text-error">
-                                {errors.firstName}
-                              </span>
-                            </label>
-                          )}
-                        </div>
-                        <div className="max-w-lg relative">
-                          <input
-                            type="text"
-                            name="lastName"
-                            id="text"
-                            value={values.lastName}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            className={`border-b-2 border-gray-300 focus:border-indigo-500 focus:outline-none w-full transition duration-300 ease-in-out px-8 py-1 ${
-                              touched.lastName &&
-                              errors.lastName &&
-                              'border-b-red-500'
-                            }`}
-                            placeholder="Enter your Last Name"
-                          ></input>
-                          <Image
-                            src={Person}
-                            alt=""
-                            className="absolute top-1"
-                          />
-                          {errors.lastName && touched.lastName && (
-                            <label htmlFor="lastName" className="label">
-                              <span className="label-text-alt text-error">
-                                {errors.lastName}
+                                {errors.code}
                               </span>
                             </label>
                           )}
@@ -153,13 +118,48 @@ export default function Register() {
                               errors.email &&
                               'border-b-red-500'
                             }`}
-                            placeholder="Enter your email"
+                            placeholder="Email"
                           ></input>
                           <Image src={Mail} alt="" className="absolute top-1" />
                           {errors.email && touched.email && (
                             <label htmlFor="email" className="label">
                               <span className="label-text-alt text-error">
                                 {errors.email}
+                              </span>
+                            </label>
+                          )}
+                        </div>
+                        <div className="max-w-lg relative">
+                          <input
+                            type={open ? 'password' : 'text'}
+                            name="password"
+                            id="password"
+                            value={values.password}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={`border-b-2 border-gray-300 focus:border-indigo-500 focus:outline-none w-full transition duration-300 ease-in-out px-8 py-2 ${
+                              touched.password &&
+                              errors.password &&
+                              'border-b-red-500'
+                            }`}
+                            placeholder="Enter password"
+                          ></input>
+                          <Image src={Lock} alt="" className="absolute top-2" />
+                          <button
+                            onClick={setInput}
+                            type="button"
+                            className="absolute top-3 right-4"
+                          >
+                            {open ? (
+                              <RxEyeClosed color="gray" size={20} />
+                            ) : (
+                              <RxEyeOpen color="gray" size={20} />
+                            )}
+                          </button>
+                          {errors.password && touched.password && (
+                            <label htmlFor="password" className="label">
+                              <span className="label-text-alt text-error">
+                                {errors.password}
                               </span>
                             </label>
                           )}
@@ -207,19 +207,13 @@ export default function Register() {
                         className="btn btn-primary normal-case max-w-lg w-full text-white shadow-2xl"
                         disabled={isSubmitting}
                       >
-                        Register
+                        Reset Password
                       </button>
                     </div>
                   </form>
                 )
               }}
             </Formik>
-            <div className="text-center max-w-lg">
-              Don&apos;t have an account ? Let&apos;s{' '}
-              <Link href="/auth/register" className="text-primary">
-                Sign Up
-              </Link>
-            </div>
           </div>
         </div>
       </div>
