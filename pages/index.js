@@ -10,27 +10,38 @@ import Lock from '../public/lock.png'
 import Phone2 from '../public/phone-2.svg'
 import Phone3 from '../public/phone-3.svg'
 import Profile from '../public/profile.png'
+import Link from 'next/link'
+import Head from 'next/head'
 import { FaArrowLeft } from 'react-icons/fa'
 import { FaArrowRight } from 'react-icons/fa'
 
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>PayWave</title>
+      </Head>
       <div className="bg-primary bg-home flex flex-col w-full h-[885px] bg-no-repeat bg-cover">
         <div className="flex w-full h-auto justify-between px-10 py-10">
           <div className="text-[29px] font-bold text-white">PayWave</div>
           <div className="flex gap-10">
-            <button className="btn bg-transparent border-secondary normal-case text-white hover:bg-white hover:text-black hover:border-white shadow-xl">
+            <Link
+              href="/auth/login"
+              className="btn bg-transparent border-secondary normal-case text-white hover:bg-white hover:text-black hover:border-white shadow-xl"
+            >
               Log in
-            </button>
-            <button className="btn btn-secondary normal-case shadow-xl">
+            </Link>
+            <Link
+              href="/auth/register"
+              className="btn btn-secondary normal-case shadow-xl"
+            >
               Sign Up
-            </button>
+            </Link>
           </div>
         </div>
         <div className="flex w-full h-[800px]">
           <div className="flex flex-auto justify-center items-center">
-            <div className="w-[80%] h-[80%]">
+            <div className="w-[50%] h-[75%]">
               <div className="flex flex-col gap-10 w-[474px]">
                 <div className="text-[60px] font-black text-white">
                   Awesome App For Saving Time
