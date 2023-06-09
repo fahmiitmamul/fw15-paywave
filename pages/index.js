@@ -22,7 +22,7 @@ export default function Home() {
         <title>PayWave</title>
       </Head>
       <div className="bg-primary bg-home flex flex-col w-full h-[885px] bg-no-repeat bg-cover">
-        <div className="flex w-full h-auto justify-between px-10 py-10">
+        <div className="flex flex-wrap w-full h-auto justify-between gap-5 px-5 py-5 md:px-10 md:py-10">
           <div className="text-[29px] font-bold text-white">PayWave</div>
           <div className="flex gap-10">
             <Link
@@ -40,10 +40,10 @@ export default function Home() {
           </div>
         </div>
         <div className="flex w-full h-[800px]">
-          <div className="flex flex-auto justify-center items-center">
-            <div className="w-[50%] h-[75%]">
-              <div className="flex flex-col gap-10 w-[474px]">
-                <div className="text-[60px] font-black text-white">
+          <div className="flex flex-auto lg:justify-center lg:items-center">
+            <div className="w-full lg:w-[50%] h-[75%]">
+              <div className="flex flex-col gap-10 max-w-[474px] p-10 md:pl-10 lg:px-0">
+                <div className="sm:text-[60px] font-black text-white">
                   Awesome App For Saving Time
                 </div>
                 <div className="text-white">
@@ -58,23 +58,23 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="flex flex-auto">
+          <div className="hidden xl:flex flex-auto">
             <div className="w-full flex justify-center items-center">
               <Image src={Phone} alt="phone"></Image>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex gap-32 justify-center w-full h-[300px] bg-blue-50">
+      <div className="flex flex-wrap gap-32 justify-center w-full bg-blue-50 py-14">
         <Image src={Partner1} alt="partner-2"></Image>
         <Image src={Partner2} alt="partner-3"></Image>
         <Image src={Partner3} alt="partner-1"></Image>
         <Image src={Partner4} alt="partner-4"></Image>
       </div>
-      <div className="flex flex-col w-full h-[885px] gap-20 bg-primary bg-home bg-no-repeat bg-cover">
+      <div className="flex flex-col w-full h-auto px-5 lg:px-0 gap-20 bg-primary bg-home bg-no-repeat bg-cover">
         <div className="flex pt-20 flex-col">
-          <div className="w-[670px] m-auto flex flex-col gap-10 text-white">
-            <div className="text-center text-[60px] font-black">
+          <div className="max-w-[670px] m-auto flex flex-col gap-10 text-white">
+            <div className="text-center text-xl lg:text-[60px] font-black">
               About the application.
             </div>
             <div className="text-center">
@@ -83,8 +83,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex justify-center gap-10 ">
-          <div className="w-[367px] h-[344px] bg-white rounded-3xl shadow-2xl cursor-pointer">
+        <div className="flex flex-wrap justify-center gap-10 pb-20 text-center">
+          <div className="w-[367px] md:h-[344px] py-5 bg-white rounded-3xl shadow-2xl cursor-pointer">
             <div className="w-full h-full flex flex-col gap-8 justify-center items-center px-10">
               <Image alt="" src={Call}></Image>
               <div className="text-[24px] font-bold text-[#3A3D42]">
@@ -96,7 +96,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="w-[367px] h-[344px] bg-white rounded-3xl shadow-2xl cursor-pointer">
+          <div className="w-[367px] md:h-[344px] py-5 bg-white rounded-3xl shadow-2xl cursor-pointer">
             <div className="w-full h-full flex flex-col gap-8 justify-center items-center px-10">
               <Image alt="" src={Lock}></Image>
               <div className="text-[24px] font-bold text-[#3A3D42]">
@@ -108,7 +108,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="w-[367px] h-[344px] bg-white rounded-3xl shadow-2xl cursor-pointer">
+          <div className="w-[367px] md:h-[344px] py-5 bg-white rounded-3xl shadow-2xl cursor-pointer">
             <div className="w-full h-full flex flex-col gap-8 justify-center items-center px-10">
               <Image alt="" src={Download}></Image>
               <div className="text-[24px] font-bold text-[#3A3D42]">
@@ -122,20 +122,20 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex w-full h-[1015px] bg-white">
-        <div className="flex flex-auto bg-blue-50 w-full overflow-hidden justify-center">
+      <div className="flex w-full h-auto lg:h-[1015px] bg-white">
+        <div className="hidden lg:flex flex-auto bg-blue-50 w-full overflow-hidden justify-center">
           <div className="flex flex-col">
             <Image alt="" src={Phone3}></Image>
             <Image alt="" src={Phone2}></Image>
           </div>
         </div>
-        <div className="flex flex-col gap-12 flex-auto bg-blue-50 w-full items-center justify-center">
-          <div className="text-[60px] font-bold w-[620px] text-[#3A3D42E5]">
+        <div className="flex flex-col px-10 lg:px-0 py-10 lg:py-0 gap-12 flex-auto bg-blue-50 w-full items-center justify-center">
+          <div className="md:text-[60px] font-bold max-w-[620px] text-[#3A3D42E5] text-center">
             All The <span className="text-primary">Great</span> PayWave
             Features.
           </div>
           <div className="flex flex-col gap-10">
-            <div className="flex flex-col gap-2 w-[620px] h-[127px] bg-white shadow-2xl rounded-2xl p-8">
+            <div className="flex flex-col gap-2 max-w-[620px] h-auto bg-white shadow-2xl rounded-2xl p-8">
               <div className="text-lg text-[#3A3D42E5] font-bold">
                 <span className="text-primary">1.</span> Small Fee
               </div>
@@ -144,7 +144,7 @@ export default function Home() {
                 app.
               </div>
             </div>
-            <div className="flex flex-col gap-2 w-[620px] h-[127px] bg-white shadow-2xl rounded-2xl p-8">
+            <div className="flex flex-col gap-2 max-w-[620px] h-auto bg-white shadow-2xl rounded-2xl p-8">
               <div className="text-lg text-[#3A3D42E5] font-bold">
                 <span className="text-primary">2.</span> Data Secured
               </div>
@@ -153,7 +153,7 @@ export default function Home() {
                 encrypted.
               </div>
             </div>
-            <div className="flex flex-col gap-2 w-[620px] h-[127px] bg-white shadow-2xl rounded-2xl p-6">
+            <div className="flex flex-col gap-2 max-w-[620px] h-auto bg-white shadow-2xl rounded-2xl p-6">
               <div className="text-lg text-[#3A3D42E5] font-bold">
                 <span className="text-primary">3.</span> User Friendly
               </div>
@@ -165,19 +165,19 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center w-full h-[1015px] bg-white gap-16">
-        <div className="text-[60px] font-black text-[#3A3D42E5]">
+      <div className="flex flex-col justify-center px-10 lg:px-0 py-10 lg:py-0 items-center w-full h-auto lg:h-[1015px] bg-white gap-16">
+        <div className="md:text-[60px] font-black text-[#3A3D42E5] text-center">
           What Users are <span className="text-primary">Saying.</span>
         </div>
-        <div className="text-[#3A3D42E5] w-[567px] text-center">
+        <div className="text-[#3A3D42E5] max-w-[567px] text-center">
           We have some great features from the application and it’s totally free
           to use by all users around the world.
         </div>
         <div className="flex justify-center items-center gap-16 text-[#3A3D42E5]">
-          <div className="w-[60px] h-[60px] rounded-2xl bg-blue-50 p-3 shadow-2xl cursor-pointer">
+          <div className="hidden xl:flex w-[60px] h-[60px] rounded-2xl bg-blue-50 p-3 shadow-2xl cursor-pointer">
             <FaArrowLeft size={35} color="#4942E4" />
           </div>
-          <div className="flex flex-col justify-center items-center gap-20 w-[988px] h-[496px] rounded-lg bg-blue-50 shadow-2xl px-20">
+          <div className="flex flex-col text-center justify-center items-center gap-20 lg:max-w-[988px] h-auto py-10 lg:py-0 lg:h-[496px] rounded-lg bg-blue-50 shadow-2xl px-5 lg:px-20">
             <div className="flex flex-col gap-5 items-center">
               <div>
                 <Image src={Profile} alt=""></Image>
@@ -194,21 +194,21 @@ export default function Home() {
               another person aut there. Just try this app and see the power!”
             </div>
           </div>
-          <div className="w-[60px] h-[60px] rounded-2xl bg-blue-50 p-3 shadow-2xl cursor-pointer">
+          <div className="hidden xl:flex w-[60px] h-[60px] rounded-2xl bg-blue-50 p-3 shadow-2xl cursor-pointer">
             <FaArrowRight size={35} color="#4942E4" />
           </div>
         </div>
       </div>
-      <div className="flex flex-col w-full h-[438px] bg-primary p-20 gap-10 text-white">
+      <div className="flex flex-col w-full lg:h-[438px] bg-primary p-5 lg:p-20 gap-10 text-white">
         <div className="text-[36px] font-bold">PayWave</div>
-        <div className="w-[285px]">
+        <div className="max-w-[285px]">
           Simplify financial needs and saving much time in banking needs with
           one single app.
         </div>
         <div className="border-b-2"></div>
-        <div className="flex w-full justify-between">
+        <div className="flex flex-wrap w-full justify-between">
           <div>2023 PayWave. All right reserved.</div>
-          <div className="flex gap-5">
+          <div className="flex flex-wrap gap-5">
             <div>+62 1234 5678 7891</div>
             <div>contact@paywave.com</div>
           </div>
