@@ -2,7 +2,6 @@ import React from 'react'
 import Image from 'next/image'
 import PhoneLogin from '../../public/phone-login.svg'
 import Head from 'next/head'
-import Mail from '../../public/mail.svg'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 
@@ -44,7 +43,7 @@ export default function CreatePin() {
             </div>
             <div className="text-[#3A3D4299] tracking-wide">
               Create 6 digits pin to secure all your money and your data in
-              FazzPay app. Keep it secret and don’t tell anyone about your
+              FazzPay app. Keep it secret and don&apos;t tell anyone about your
               FazzPay account password and the PIN.
             </div>
             <Formik
@@ -52,15 +51,7 @@ export default function CreatePin() {
               validationSchema={validationSchema}
               onSubmit={doSubmit}
             >
-              {({
-                values,
-                errors,
-                touched,
-                handleBlur,
-                handleSubmit,
-                handleChange,
-                isSubmitting,
-              }) => {
+              {({ handleSubmit, isSubmitting }) => {
                 return (
                   <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                     <div className="flex flex-col gap-5">
@@ -68,33 +59,33 @@ export default function CreatePin() {
                         <div className="flex gap-2 relative">
                           <input
                             type="number"
-                            class="w-12 overflow-hidden h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            maxlength="1"
+                            className="w-12 overflow-hidden h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            maxLength="1"
                           />
                           <input
                             type="number"
-                            class="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            maxlength="1"
+                            className="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            maxLength="1"
                           />
                           <input
                             type="number"
-                            class="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            maxlength="1"
+                            className="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            maxLength="1"
                           />
                           <input
                             type="number"
-                            class="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            maxlength="1"
+                            className="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            maxLength="1"
                           />
                           <input
                             type="number"
-                            class="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            maxlength="1"
+                            className="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            maxLength="1"
                           />
                           <input
                             type="number"
-                            class="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            maxlength="1"
+                            className="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            maxLength="1"
                           />
                         </div>
                       </div>
