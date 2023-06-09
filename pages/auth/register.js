@@ -34,7 +34,7 @@ export default function Register() {
       <Head>
         <title>Register</title>
       </Head>
-      <div className="flex flex-auto w-full bg-primary bg-home bg-no-repeat bg-cover bg-bottom">
+      <div className="flex flex-auto w-full bg-primary bg-home bg-no-repeat bg-cover bg-bottom h-screen">
         <div className="hidden lg:flex flex-col gap-10 flex-auto w-1/2 justify-center items-center">
           <div className="w-[60%] text-2xl text-white font-black">PayWave</div>
           <Image src={PhoneLogin} alt="" className="w-[50%]"></Image>
