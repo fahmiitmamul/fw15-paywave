@@ -42,7 +42,7 @@ export default function ResetPassword() {
               App that cover banking needs
             </div>
             <div>
-              FazzPay is an application that focussing in banking needs for all
+              PayWave is an application that focussing in banking needs for all
               users in the world. Always updated and always following world
               trends. 5000+ users registered in FazzPay everyday with worldwide
               users coverage.
@@ -52,13 +52,10 @@ export default function ResetPassword() {
         <div className="flex flex-col justify-center items-center flex-auto w-1/2 bg-white">
           <div className="w-1/2 flex flex-col gap-10">
             <div className="text-2xl font-bold tracking-wide">
-              Start Accessing Banking Needs With All Devices and All Platforms
-              With 30.000+ Users
+              Reset Password
             </div>
             <div className="text-[#3A3D4299] tracking-wide">
-              Transfering money is eassier than ever, you can access FazzPay
-              wherever you are. Desktop, laptop, mobile phone? we cover all of
-              that for you!
+              Please enter code to reset your password
             </div>
             <Formik
               initialValues={{

@@ -6,7 +6,7 @@ import Mail from '../../public/mail.svg'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 
-export default function ForgotPassword() {
+export default function CreatePin() {
   const validationSchema = Yup.object({
     code: Yup.string().required('Code is required !'),
   })
@@ -18,7 +18,7 @@ export default function ForgotPassword() {
   return (
     <>
       <Head>
-        <title>Forgot Password</title>
+        <title>Create PIN</title>
       </Head>
       <div className="flex flex-auto w-full bg-primary bg-home bg-no-repeat bg-cover bg-bottom">
         <div className="hidden lg:flex flex-col gap-10 flex-auto w-1/2 justify-center items-center">
@@ -29,7 +29,7 @@ export default function ForgotPassword() {
               App that cover banking needs
             </div>
             <div>
-              PayWave is an application that focussing in banking needs for all
+              FazzPay is an application that focussing in banking needs for all
               users in the world. Always updated and always following world
               trends. 5000+ users registered in FazzPay everyday with worldwide
               users coverage.
@@ -37,15 +37,15 @@ export default function ForgotPassword() {
           </div>
         </div>
         <div className="flex flex-col justify-center items-center flex-auto w-1/2 bg-white">
-          <div className="w-1/2 flex flex-col gap-10">
+          <div className="w-3/5 flex flex-col gap-10">
             <div className="text-2xl font-bold tracking-wide">
-              Did You Forgot Your Password? Don&apos;t Worry, You Can Reset Your
-              Password In a Minutes.
+              Secure Your Account, Your Wallet, and Your Data With 6 Digits PIN
+              That You Created Yourself.
             </div>
             <div className="text-[#3A3D4299] tracking-wide">
-              To reset your password, you must type your e-mail and we will send
-              a link to your email and you will be directed to the reset
-              password screens.
+              Create 6 digits pin to secure all your money and your data in
+              FazzPay app. Keep it secret and don’t tell anyone about your
+              FazzPay account password and the PIN.
             </div>
             <Formik
               initialValues={{ code: '' }}
@@ -65,27 +65,37 @@ export default function ForgotPassword() {
                   <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                     <div className="flex flex-col gap-5">
                       <div className="flex flex-col gap-8">
-                        <div className="max-w-lg relative">
+                        <div className="flex gap-2 relative">
                           <input
-                            type="text"
-                            name="code"
-                            id="code"
-                            value={values.code}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            className={`border-b-2 border-gray-300 focus:border-indigo-500 focus:outline-none w-full transition duration-300 ease-in-out px-8 py-1 ${
-                              touched.code && errors.code && 'border-b-red-500'
-                            }`}
-                            placeholder="Enter your code"
-                          ></input>
-                          <Image src={Mail} alt="" className="absolute top-1" />
-                          {errors.code && touched.code && (
-                            <label htmlFor="code" className="label">
-                              <span className="label-text-alt text-error">
-                                {errors.code}
-                              </span>
-                            </label>
-                          )}
+                            type="number"
+                            class="w-12 overflow-hidden h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            maxlength="1"
+                          />
+                          <input
+                            type="number"
+                            class="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            maxlength="1"
+                          />
+                          <input
+                            type="number"
+                            class="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            maxlength="1"
+                          />
+                          <input
+                            type="number"
+                            class="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            maxlength="1"
+                          />
+                          <input
+                            type="number"
+                            class="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            maxlength="1"
+                          />
+                          <input
+                            type="number"
+                            class="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            maxlength="1"
+                          />
                         </div>
                       </div>
                     </div>
@@ -95,7 +105,7 @@ export default function ForgotPassword() {
                         className="btn btn-primary normal-case max-w-lg w-full text-white shadow-2xl"
                         disabled={isSubmitting}
                       >
-                        Send Link
+                        Confirm
                       </button>
                     </div>
                   </form>
