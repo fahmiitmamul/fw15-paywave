@@ -62,7 +62,7 @@ export default function Transfer() {
         </div>
         <div className="w-full flex flex-col gap-5">
           <div className="flex flex-col gap-10 w-full rounded-2xl shadow-2xl h-full p-10">
-            <div>Search Receiver</div>
+            <div className="text-lg font-bold">Search Receiver</div>
             <div>
               <div className="relative">
                 <input
