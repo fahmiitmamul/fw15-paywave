@@ -8,10 +8,14 @@ import { LuSearch } from 'react-icons/lu'
 import Link from 'next/link'
 import Picture from '../public/picture.jpg'
 import Image from 'next/image'
+import Head from 'next/head'
 
 export default function Transfer() {
   return (
     <>
+      <Head>
+        <title>Transfer</title>
+      </Head>
       <div className="flex justify-between items-center w-full h-[140px] rounded-2xl shadow-2xl p-12">
         <Link href="/" className="text-3xl font-bold text-primary">
           PayWave

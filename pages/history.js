@@ -1,19 +1,16 @@
-import { FiBell } from 'react-icons/fi'
-import { FiPlus } from 'react-icons/fi'
-import { FiArrowUp } from 'react-icons/fi'
-import { RxDashboard } from 'react-icons/rx'
-import { BsPersonCircle } from 'react-icons/bs'
-import { FiLogOut } from 'react-icons/fi'
-import Link from 'next/link'
 import Picture from '../public/picture.jpg'
 import Image from 'next/image'
 import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'
 import Footer from '@/components/footer'
+import Head from 'next/head'
 
 export default function History() {
   return (
     <>
+      <Head>
+        <title>History</title>
+      </Head>
       <Header />
       <div className="flex gap-10 w-full h-[800px] py-10 px-20">
         <Sidebar />

@@ -5,10 +5,14 @@ import Image from 'next/image'
 import Sidebar from '@/components/sidebar'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import Head from 'next/head'
 
 export default function TransferSuccess() {
   return (
     <>
+      <Head>
+        <title>Transfer Success</title>
+      </Head>
       <Header />
       <div className="flex gap-10 w-full h-[800px] py-10 px-20">
         <Sidebar />
