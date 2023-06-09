@@ -1,15 +1,15 @@
 import ProgressBar from '@/components/progress-bar'
 import '@/styles/globals.css'
-import { Poppins } from 'next/font/google'
+import { Nunito_Sans } from 'next/font/google'
 
-const poppins = Poppins({
+const Nunito = Nunito_Sans({
   weight: '400',
   subsets: ['latin'],
 })
 
 export default function App({ Component, pageProps }) {
   return (
-    <main className={poppins.className}>
+    <main className={Nunito.className}>
       <ProgressBar />
       <Component {...pageProps} />
     </main>
