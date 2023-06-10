@@ -164,17 +164,17 @@ export default function ResetPassword() {
                         <div className="max-w-lg relative">
                           <input
                             type={open ? 'password' : 'text'}
-                            name="password"
-                            id="password"
-                            value={values.password}
+                            name="confirmPassword"
+                            id="confirmPassword"
+                            value={values.confirmPassword}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             className={`border-b-2 border-gray-300 focus:border-indigo-500 focus:outline-none w-full transition duration-300 ease-in-out px-8 py-2 ${
-                              touched.password &&
-                              errors.password &&
+                              touched.confirmPassword &&
+                              errors.confirmPassword &&
                               'border-b-red-500'
                             }`}
-                            placeholder="Enter password"
+                            placeholder="Confirm Password"
                           ></input>
                           <Image src={Lock} alt="" className="absolute top-2" />
                           <button
@@ -188,13 +188,17 @@ export default function ResetPassword() {
                               <RxEyeOpen color="gray" size={20} />
                             )}
                           </button>
-                          {errors.password && touched.password && (
-                            <label htmlFor="password" className="label">
-                              <span className="label-text-alt text-error">
-                                {errors.password}
-                              </span>
-                            </label>
-                          )}
+                          {errors.confirmPassword &&
+                            touched.confirmPassword && (
+                              <label
+                                htmlFor="confirmPassword"
+                                className="label"
+                              >
+                                <span className="label-text-alt text-error">
+                                  {errors.confirmPassword}
+                                </span>
+                              </label>
+                            )}
                         </div>
                       </div>
                     </div>

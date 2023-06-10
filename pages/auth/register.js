@@ -215,9 +215,9 @@ export default function Register() {
               }}
             </Formik>
             <div className="text-center max-w-lg">
-              Don&apos;t have an account ? Let&apos;s{' '}
-              <Link href="/auth/register" className="text-primary">
-                Sign Up
+              Already have an account? Let&apos;s&nbsp;
+              <Link href="/auth/login" className="text-primary">
+                Login
               </Link>
             </div>
           </div>
