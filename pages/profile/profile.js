@@ -2,7 +2,7 @@ import Footer from '@/components/footer'
 import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'
 import Image from 'next/image'
-import Picture from '../public/picture.jpg'
+import Picture from '../../public/picture.jpg'
 import { BsPencilSquare } from 'react-icons/bs'
 import { FiArrowRight } from 'react-icons/fi'
 

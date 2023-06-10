@@ -1,4 +1,4 @@
-import Picture from '../public/picture.jpg'
+import Picture from '../../public/picture.jpg'
 import Image from 'next/image'
 import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'

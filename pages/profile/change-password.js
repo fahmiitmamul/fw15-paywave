@@ -1,7 +1,7 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'
-import Lock from '../public/lock.svg'
+import Lock from '../../public/lock.svg'
 import Image from 'next/image'
 import * as Yup from 'yup'
 import { Formik } from 'formik'

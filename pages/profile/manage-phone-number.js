@@ -1,7 +1,6 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'
-import Image from 'next/image'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { FiPhone } from 'react-icons/fi'
