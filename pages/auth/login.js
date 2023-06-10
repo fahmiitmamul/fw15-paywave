@@ -11,13 +11,16 @@ import { RxEyeOpen } from 'react-icons/rx'
 import { useState } from 'react'
 import * as Yup from 'yup'
 import { useRouter } from 'next/router'
+import { withIronSessionSsr } from 'iron-session/next'
+import cookieConfig from '@/helpers/cookie-config'
+import axios from 'axios'
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
     const token = req.session?.token
 
     if (token) {
-      res.setHeader('location', '/home')
+      res.setHeader('location', '/')
       res.statusCode = 302
       res.end()
       return {
@@ -39,19 +42,19 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
-  const doLogin = async (e) => {
+  const doLogin = async (values) => {
     setLoading(true)
-    e.preventDefault()
-    const { value: email } = e.target.email
-    const { value: password } = e.target.password
+    const email = values.email
+    const password = values.password
     const form = new URLSearchParams({
       email,
       password,
-    })
-    const { data } = await axios.post('/api/login', form.toString())
+    }).toString()
+
+    const { data } = await axios.post('../api/login', form.toString())
     setLoading(false)
     if (data?.results?.token) {
-      router.push('/home')
+      router.push('/')
     }
   }
 
@@ -187,9 +190,12 @@ export default function Login() {
                       <button
                         type="submit"
                         className="btn btn-primary normal-case max-w-lg w-full text-white shadow-2xl"
-                        disabled={isSubmitting}
+                        disabled={loading}
                       >
-                        Login
+                        {loading && (
+                          <span className="loading loading-spinner loading-sm"></span>
+                        )}
+                        {!loading && 'Login'}
                       </button>
                     </div>
                   </form>
