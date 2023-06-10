@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
 function Logout() {
   const router = useRouter()
   const doLogout = useCallback(async () => {
-    await axios.get('/api/logout')
-    router.replace('/auth/login')
+    await axios.get('../api/logout')
+    router.replace('../auth/login')
   }, [router])
   useEffect(() => {
     doLogout()
