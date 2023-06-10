@@ -30,56 +30,54 @@ export default function PinInput({ onChangePin }) {
 
   return (
     <>
-      <form className="flex flex-col gap-5">
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-col gap-8">
-            <div className="flex gap-2 relative">
-              <input
-                type="number"
-                onChange={changeValue}
-                name="1"
-                ref={pinInput.input1}
-                className="w-14 h-14 text-center input input-bordered font-bold text-2xl"
-              />
-              <input
-                type="number"
-                onChange={changeValue}
-                name="2"
-                ref={pinInput.input2}
-                className="w-14 h-14 text-center input input-bordered font-bold text-2xl"
-              />
-              <input
-                type="number"
-                onChange={changeValue}
-                name="3"
-                ref={pinInput.input3}
-                className="w-14 h-14 text-center input input-bordered font-bold text-2xl"
-              />
-              <input
-                type="number"
-                onChange={changeValue}
-                name="4"
-                ref={pinInput.input4}
-                className="w-14 h-14 text-center input input-bordered font-bold text-2xl"
-              />
-              <input
-                type="number"
-                onChange={changeValue}
-                name="5"
-                ref={pinInput.input5}
-                className="w-14 h-14 text-center input input-bordered font-bold text-2xl"
-              />
-              <input
-                type="number"
-                onChange={changeValue}
-                name="6"
-                ref={pinInput.input6}
-                className="w-14 h-14 text-center input input-bordered font-bold text-2xl"
-              />
-            </div>
+      <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-8">
+          <div className="flex gap-2 relative">
+            <input
+              type="number"
+              onChange={changeValue}
+              name="1"
+              ref={pinInput.input1}
+              className="w-14 h-14 text-center input input-bordered font-bold text-2xl"
+            />
+            <input
+              type="number"
+              onChange={changeValue}
+              name="2"
+              ref={pinInput.input2}
+              className="w-14 h-14 text-center input input-bordered font-bold text-2xl"
+            />
+            <input
+              type="number"
+              onChange={changeValue}
+              name="3"
+              ref={pinInput.input3}
+              className="w-14 h-14 text-center input input-bordered font-bold text-2xl"
+            />
+            <input
+              type="number"
+              onChange={changeValue}
+              name="4"
+              ref={pinInput.input4}
+              className="w-14 h-14 text-center input input-bordered font-bold text-2xl"
+            />
+            <input
+              type="number"
+              onChange={changeValue}
+              name="5"
+              ref={pinInput.input5}
+              className="w-14 h-14 text-center input input-bordered font-bold text-2xl"
+            />
+            <input
+              type="number"
+              onChange={changeValue}
+              name="6"
+              ref={pinInput.input6}
+              className="w-14 h-14 text-center input input-bordered font-bold text-2xl"
+            />
           </div>
         </div>
-      </form>
+      </div>
     </>
   )
 }

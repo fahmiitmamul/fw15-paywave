@@ -5,14 +5,10 @@ import PhoneLogin from '../../public/phone-login.svg'
 import Head from 'next/head'
 
 export default function CreatePin() {
-  const [showAlert, setShowAlert] = useState(false)
+  const [pin, setPin] = useState('')
 
-  const changedPin = (value) => {
-    if (value.length === 6) {
-      setShowAlert(true)
-    } else {
-      setShowAlert(false)
-    }
+  function doSubmit() {
+    alert(pin)
   }
 
   return (
@@ -49,18 +45,15 @@ export default function CreatePin() {
                 your FazzPay account password and the PIN.
               </div>
             </div>
-            <PinInput onChangePin={changedPin} />
-            {showAlert && (
-              <div className="alert alert-success max-w-sm text-white font-bold text-center">
-                Pin has 6 digits
-              </div>
-            )}
-            <button
-              type="submit"
-              className="btn btn-primary normal-case max-w-sm w-full text-white shadow-2xl"
-            >
-              Confirm
-            </button>
+            <form className="flex flex-col gap-5" onSubmit={doSubmit}>
+              <PinInput onChangePin={setPin} />
+              <button
+                type="submit"
+                className="btn btn-primary normal-case max-w-sm w-full text-white shadow-2xl"
+              >
+                Confirm
+              </button>
+            </form>
           </div>
         </div>
       </div>
