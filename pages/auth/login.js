@@ -10,9 +10,50 @@ import { RxEyeClosed } from 'react-icons/rx'
 import { RxEyeOpen } from 'react-icons/rx'
 import { useState } from 'react'
 import * as Yup from 'yup'
+import { useRouter } from 'next/router'
+
+export const getServerSideProps = withIronSessionSsr(
+  async function getServerSideProps({ req, res }) {
+    const token = req.session?.token
+
+    if (token) {
+      res.setHeader('location', '/home')
+      res.statusCode = 302
+      res.end()
+      return {
+        props: {
+          token,
+        },
+      }
+    }
+
+    return {
+      props: {},
+    }
+  },
+  cookieConfig
+)
 
 export default function Login() {
   const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+
+  const doLogin = async (e) => {
+    setLoading(true)
+    e.preventDefault()
+    const { value: email } = e.target.email
+    const { value: password } = e.target.password
+    const form = new URLSearchParams({
+      email,
+      password,
+    })
+    const { data } = await axios.post('/api/login', form.toString())
+    setLoading(false)
+    if (data?.results?.token) {
+      router.push('/home')
+    }
+  }
 
   const validationSchema = Yup.object({
     email: Yup.string().required('Email is required !'),
@@ -21,10 +62,6 @@ export default function Login() {
 
   function setInput() {
     setOpen(!open)
-  }
-
-  function doSubmit(values) {
-    alert(JSON.stringify(values))
   }
 
   return (
@@ -62,7 +99,7 @@ export default function Login() {
             <Formik
               initialValues={{ email: '', password: '' }}
               validationSchema={validationSchema}
-              onSubmit={doSubmit}
+              onSubmit={doLogin}
             >
               {({
                 values,
