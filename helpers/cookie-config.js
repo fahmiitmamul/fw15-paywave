@@ -1,6 +1,6 @@
 const cookieConfig = {
   cookieName: 'fazzpay',
-  password: 'uJUS+YRA9r2T5NnWZ}N!h`G%;NGWrCpp',
+  password: 'jkVKXS^&SNr?KNVY@Mw4!WQf-fzKb9km',
   cookieOptions: {
     secure: process.env.NODE_ENV === 'production',
   },
