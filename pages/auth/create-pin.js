@@ -1,17 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
+import PinInput from '@/components/pin-input'
 import Image from 'next/image'
 import PhoneLogin from '../../public/phone-login.svg'
 import Head from 'next/head'
-import { Formik } from 'formik'
-import * as Yup from 'yup'
 
 export default function CreatePin() {
-  const validationSchema = Yup.object({
-    code: Yup.string().required('Code is required !'),
-  })
+  const [showAlert, setShowAlert] = useState(false)
 
-  function doSubmit(values) {
-    alert(JSON.stringify(values))
+  const changedPin = (value) => {
+    if (value.length === 6) {
+      setShowAlert(true)
+    } else {
+      setShowAlert(false)
+    }
   }
 
   return (
@@ -36,73 +37,30 @@ export default function CreatePin() {
           </div>
         </div>
         <div className="flex flex-col justify-center items-center flex-auto w-1/2 bg-white">
-          <div className="w-3/5 flex flex-col gap-10">
-            <div className="text-2xl font-bold tracking-wide">
-              Secure Your Account, Your Wallet, and Your Data With 6 Digits PIN
-              That You Created Yourself.
+          <div className="flex flex-col gap-10 justify-center items-center">
+            <div className="w-3/5 flex flex-col gap-10">
+              <div className="text-2xl font-bold tracking-wide">
+                Secure Your Account, Your Wallet, and Your Data With 6 Digits
+                PIN That You Created Yourself.
+              </div>
+              <div className="text-[#3A3D4299] tracking-wide">
+                Create 6 digits pin to secure all your money and your data in
+                FazzPay app. Keep it secret and don&apos;t tell anyone about
+                your FazzPay account password and the PIN.
+              </div>
             </div>
-            <div className="text-[#3A3D4299] tracking-wide">
-              Create 6 digits pin to secure all your money and your data in
-              FazzPay app. Keep it secret and don&apos;t tell anyone about your
-              FazzPay account password and the PIN.
-            </div>
-            <Formik
-              initialValues={{ code: '' }}
-              validationSchema={validationSchema}
-              onSubmit={doSubmit}
+            <PinInput onChangePin={changedPin} />
+            {showAlert && (
+              <div className="alert alert-success max-w-sm text-white font-bold text-center">
+                Pin has 6 digits
+              </div>
+            )}
+            <button
+              type="submit"
+              className="btn btn-primary normal-case max-w-sm w-full text-white shadow-2xl"
             >
-              {({ handleSubmit, isSubmitting }) => {
-                return (
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                    <div className="flex flex-col gap-5">
-                      <div className="flex flex-col gap-8">
-                        <div className="flex gap-2 relative">
-                          <input
-                            type="number"
-                            className="w-12 overflow-hidden h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            maxLength="1"
-                          />
-                          <input
-                            type="number"
-                            className="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            maxLength="1"
-                          />
-                          <input
-                            type="number"
-                            className="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            maxLength="1"
-                          />
-                          <input
-                            type="number"
-                            className="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            maxLength="1"
-                          />
-                          <input
-                            type="number"
-                            className="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            maxLength="1"
-                          />
-                          <input
-                            type="number"
-                            className="w-12 h-12 text-center text-2xl bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            maxLength="1"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <button
-                        type="submit"
-                        className="btn btn-primary normal-case max-w-lg w-full text-white shadow-2xl"
-                        disabled={isSubmitting}
-                      >
-                        Confirm
-                      </button>
-                    </div>
-                  </form>
-                )
-              }}
-            </Formik>
+              Confirm
+            </button>
           </div>
         </div>
       </div>
