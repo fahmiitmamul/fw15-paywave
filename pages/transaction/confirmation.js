@@ -4,8 +4,16 @@ import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'
 import Footer from '@/components/footer'
 import Head from 'next/head'
+import PinModal from '@/components/pin-modal'
+import { useState } from 'react'
 
 export default function Confirmation() {
+  const [checked, setChecked] = useState(false)
+
+  function showModal() {
+    setChecked(!checked)
+  }
+
   return (
     <>
       <Head>
@@ -46,14 +54,19 @@ export default function Confirmation() {
               </div>
             </div>
             <div className="flex w-full justify-end">
-              <button className="btn btn-primary normal-case text-white">
+              <label
+                htmlFor="pinModal"
+                className="btn btn-primary normal-case text-white"
+              >
                 Continue
-              </button>
+              </label>
             </div>
           </div>
         </div>
       </div>
       <Footer />
+      <input type="checkbox" id="pinModal" className="modal-toggle" />
+      <PinModal />
     </>
   )
 }
