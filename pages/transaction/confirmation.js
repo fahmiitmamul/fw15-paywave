@@ -5,15 +5,8 @@ import Sidebar from '@/components/sidebar'
 import Footer from '@/components/footer'
 import Head from 'next/head'
 import PinModal from '@/components/pin-modal'
-import { useState } from 'react'
 
 export default function Confirmation() {
-  const [checked, setChecked] = useState(false)
-
-  function showModal() {
-    setChecked(!checked)
-  }
-
   return (
     <>
       <Head>

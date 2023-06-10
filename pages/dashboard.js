@@ -7,6 +7,8 @@ import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'
 import Footer from '@/components/footer'
 import Head from 'next/head'
+import TopUpModal from '@/components/topup-modal'
+import { useState } from 'react'
 
 export default function Dashboard() {
   return (
@@ -29,10 +31,13 @@ export default function Dashboard() {
                 <FiArrowUp size={25} />
                 Transfer
               </button>
-              <button className="flex justify-between items-center normal-case btn btn-primary rounded-xl hover:bg-white hover:text-black text-white bg-[#FFFFFF33] border-white">
+              <label
+                htmlFor="topup-modal"
+                className="flex justify-between items-center normal-case btn btn-primary rounded-xl hover:bg-white hover:text-black text-white bg-[#FFFFFF33] border-white"
+              >
                 <FiPlus size={25} />
                 Top Up
-              </button>
+              </label>
             </div>
           </div>
           <div className="flex gap-10">
@@ -153,6 +158,8 @@ export default function Dashboard() {
         </div>
       </div>
       <Footer />
+      <input type="checkbox" id="topup-modal" className="modal-toggle" />
+      <TopUpModal />
     </>
   )
 }
