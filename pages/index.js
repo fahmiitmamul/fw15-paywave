@@ -17,6 +17,9 @@ import { FaArrowRight } from 'react-icons/fa'
 import { withIronSessionSsr } from 'iron-session/next'
 import cookieConfig from '@/helpers/cookie-config'
 import Logout from './auth/logout'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { getProfileAction } from '@/redux/actions/profile'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null
@@ -28,6 +31,12 @@ export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
 }, cookieConfig)
 
 export default function Home({ token }) {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getProfileAction(token))
+  }, [dispatch, token])
+
   return (
     <>
       <Head>
@@ -105,7 +114,7 @@ export default function Home({ token }) {
           </div>
         </div>
         <div className="flex flex-wrap justify-center gap-10 pb-20 text-center">
-          <div className="w-[367px] md:h-[344px] py-5 bg-white rounded-3xl shadow-2xl cursor-pointer">
+          <div className="max-w-[367px] md:h-[344px] py-5 bg-white rounded-3xl shadow-2xl cursor-pointer">
             <div className="w-full h-full flex flex-col gap-8 justify-center items-center px-10">
               <Image alt="" src={Call}></Image>
               <div className="text-[24px] font-bold text-[#3A3D42]">
@@ -117,7 +126,7 @@ export default function Home({ token }) {
               </div>
             </div>
           </div>
-          <div className="w-[367px] md:h-[344px] py-5 bg-white rounded-3xl shadow-2xl cursor-pointer">
+          <div className="max-w-[367px] md:h-[344px] py-5 bg-white rounded-3xl shadow-2xl cursor-pointer">
             <div className="w-full h-full flex flex-col gap-8 justify-center items-center px-10">
               <Image alt="" src={Lock}></Image>
               <div className="text-[24px] font-bold text-[#3A3D42]">
@@ -129,7 +138,7 @@ export default function Home({ token }) {
               </div>
             </div>
           </div>
-          <div className="w-[367px] md:h-[344px] py-5 bg-white rounded-3xl shadow-2xl cursor-pointer">
+          <div className="max-w-[367px] md:h-[344px] py-5 bg-white rounded-3xl shadow-2xl cursor-pointer">
             <div className="w-full h-full flex flex-col gap-8 justify-center items-center px-10">
               <Image alt="" src={Download}></Image>
               <div className="text-[24px] font-bold text-[#3A3D42]">
