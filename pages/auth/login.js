@@ -40,6 +40,7 @@ export const getServerSideProps = withIronSessionSsr(
 export default function Login() {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState('')
   const router = useRouter()
 
   const doLogin = async (values) => {
@@ -56,6 +57,15 @@ export default function Login() {
     if (data?.results?.token) {
       router.push('/')
     }
+    const msg = data.message
+
+    if (msg.includes('wrong_password')) {
+      setMessage('Wrong credentials')
+    }
+
+    setTimeout(() => {
+      setMessage(false)
+    }, 3000)
   }
 
   const validationSchema = Yup.object({
@@ -99,6 +109,11 @@ export default function Login() {
               wherever you are. Desktop, laptop, mobile phone? we cover all of
               that for you!
             </div>
+            {message && (
+              <div className="alert alert-error text-lg text-white">
+                {message}
+              </div>
+            )}
             <Formik
               initialValues={{ email: '', password: '' }}
               validationSchema={validationSchema}
