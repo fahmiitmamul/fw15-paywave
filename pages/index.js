@@ -14,8 +14,20 @@ import Link from 'next/link'
 import Head from 'next/head'
 import { FaArrowLeft } from 'react-icons/fa'
 import { FaArrowRight } from 'react-icons/fa'
+import { withIronSessionSsr } from 'iron-session/next'
+import cookieConfig from '@/helpers/cookie-config'
+import Logout from './auth/logout'
 
-export default function Home() {
+export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
+  const token = req.session.token || null
+  return {
+    props: {
+      token,
+    },
+  }
+}, cookieConfig)
+
+export default function Home({ token }) {
   return (
     <>
       <Head>
@@ -25,18 +37,24 @@ export default function Home() {
         <div className="flex flex-wrap w-full h-auto justify-between gap-5 px-5 py-5 md:px-10 md:py-10">
           <div className="text-[29px] font-bold text-white">PayWave</div>
           <div className="flex gap-10">
-            <Link
-              href="/auth/login"
-              className="btn bg-transparent border-secondary normal-case text-white hover:bg-white hover:text-black hover:border-white shadow-xl"
-            >
-              Log in
-            </Link>
-            <Link
-              href="/auth/register"
-              className="btn btn-secondary normal-case shadow-xl"
-            >
-              Sign Up
-            </Link>
+            {token ? (
+              <Logout />
+            ) : (
+              <>
+                <Link
+                  href="/auth/login"
+                  className="btn bg-transparent border-secondary normal-case text-white hover:bg-white hover:text-black hover:border-white shadow-xl"
+                >
+                  Log in
+                </Link>
+                <Link
+                  href="/auth/register"
+                  className="btn btn-secondary normal-case shadow-xl"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </div>
         <div className="flex w-full h-[800px]">

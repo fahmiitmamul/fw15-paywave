@@ -8,10 +8,11 @@ function Logout() {
     await axios.get('../api/logout')
     router.replace('../auth/login')
   }, [router])
-  useEffect(() => {
-    doLogout()
-  }, [doLogout])
-  return <div>Logout</div>
+  return (
+    <div className="btn btn-secondary normal-case shadow-xl" onClick={doLogout}>
+      Logout
+    </div>
+  )
 }
 
 export default Logout
