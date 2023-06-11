@@ -69,9 +69,12 @@ export default function Home({ token }) {
                   wasting much of your times.
                 </div>
                 <div>
-                  <button className="btn border-none bg-white border-white normal-case text-primary hover:shadow-2xl">
+                  <Link
+                    href="auth/login"
+                    className="btn border-none bg-white border-white normal-case text-primary hover:shadow-2xl"
+                  >
                     Try It Free
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -158,7 +161,7 @@ export default function Home({ token }) {
                 <span className="text-primary">1.</span> Small Fee
               </div>
               <div className="text-[#3A3D42E5]">
-                We only charge 5% of every success transaction done in FazzPay
+                We only charge 5% of every success transaction done in PayWave
                 app.
               </div>
             </div>
