@@ -1,6 +1,8 @@
 import ProgressBar from '@/components/progress-bar'
 import '@/styles/globals.css'
 import { Nunito_Sans } from 'next/font/google'
+import { Provider } from 'react-redux'
+import { store, persistor } from '@/redux/store'
 
 const Nunito = Nunito_Sans({
   weight: '400',
@@ -9,9 +11,11 @@ const Nunito = Nunito_Sans({
 
 export default function App({ Component, pageProps }) {
   return (
-    <main className={Nunito.className}>
-      <ProgressBar />
-      <Component {...pageProps} />
-    </main>
+    <Provider store={store}>
+      <main className={Nunito.className}>
+        <ProgressBar />
+        <Component {...pageProps} />
+      </main>
+    </Provider>
   )
 }

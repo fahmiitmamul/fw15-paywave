@@ -1,15 +1,50 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PinInput from '@/components/pin-input'
 import Image from 'next/image'
 import PhoneLogin from '../../public/phone-login.svg'
 import Head from 'next/head'
+import { withIronSessionSsr } from 'iron-session/next'
+import { useRouter } from 'next/router'
+import cookieConfig from '@/helpers/cookie-config'
+import http from '@/helpers/http'
+import { useDispatch, useSelector } from 'react-redux'
 
-export default function CreatePin() {
+export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
+  const token = req.session.token || null
+  return {
+    props: {
+      token,
+    },
+  }
+}, cookieConfig)
+
+export default function CreatePin({ token }) {
+  const profile = useSelector((state) => state.profile.data)
+  const dispatch = useDispatch()
+  const router = useRouter()
   const [pin, setPin] = useState('')
 
   function doSubmit() {
     alert(pin)
   }
+
+  async function sendPin() {
+    try {
+      const { data } = await http(token).post('/auth/set-pin')
+    } catch (err) {}
+  }
+
+  useEffect(() => {
+    async function getProfile() {
+      dispatch(getProfile(token))
+    }
+
+    if (!token) {
+      router.push('/auth/login')
+    }
+
+    getProfile()
+  }, [token, router, dispatch])
 
   return (
     <>
@@ -25,7 +60,7 @@ export default function CreatePin() {
               App that cover banking needs
             </div>
             <div>
-              FazzPay is an application that focussing in banking needs for all
+              PayWave is an application that focussing in banking needs for all
               users in the world. Always updated and always following world
               trends. 5000+ users registered in FazzPay everyday with worldwide
               users coverage.

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getProfileAction } from './actions/profile'
+import { getProfileAction } from '@/redux/actions/profile'
 
 const initialState = {
   data: {},
