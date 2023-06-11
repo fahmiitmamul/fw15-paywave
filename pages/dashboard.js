@@ -8,8 +8,27 @@ import Sidebar from '@/components/sidebar'
 import Footer from '@/components/footer'
 import Head from 'next/head'
 import TopUpModal from '@/components/topup-modal'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { getProfileAction } from '@/redux/actions/profile'
+import { withIronSessionSsr } from 'iron-session/next'
+import cookieConfig from '@/helpers/cookie-config'
 
-export default function Dashboard() {
+export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
+  const token = req.session.token || null
+  return {
+    props: {
+      token,
+    },
+  }
+}, cookieConfig)
+
+export default function Dashboard({ token }) {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getProfileAction(token))
+  }, [dispatch, token])
+
   return (
     <>
       <Head>
