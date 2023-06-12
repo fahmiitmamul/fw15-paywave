@@ -3,11 +3,12 @@ import PinInput from '@/components/pin-input'
 import Image from 'next/image'
 import PhoneLogin from '../../public/phone-login.svg'
 import Head from 'next/head'
-import { withIronSessionSsr } from 'iron-session/next'
-import { useRouter } from 'next/router'
 import cookieConfig from '@/helpers/cookie-config'
 import http from '@/helpers/http'
+import { withIronSessionSsr } from 'iron-session/next'
 import { useDispatch, useSelector } from 'react-redux'
+import { getProfileAction } from '@/redux/actions/profile'
+import { useRouter } from 'next/router'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null
@@ -20,31 +21,38 @@ export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
 
 export default function CreatePin({ token }) {
   const profile = useSelector((state) => state.profile.data)
+  const [errMessage, seterrMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
+  const [pin, setPin] = useState('')
   const dispatch = useDispatch()
   const router = useRouter()
-  const [pin, setPin] = useState('')
 
-  function doSubmit() {
-    alert(pin)
-  }
-
-  async function sendPin() {
+  async function doSubmit(e) {
+    e.preventDefault()
     try {
-      const { data } = await http(token).post('/auth/set-pin')
-    } catch (err) {}
+      const email = profile.email
+      const form = new URLSearchParams({ email: email, code: pin })
+      const { data } = await http(token).post('/auth/set-pin', form)
+      if (data) {
+        setSuccessMessage('Pin has been set')
+      }
+    } catch (err) {
+      const errMsg = err.response?.data?.message
+      if (errMsg === 'auth_pin_already_set') {
+        seterrMessage('Pin already set')
+      }
+      setTimeout(() => {
+        seterrMessage(false)
+      }, 3000)
+    }
   }
 
   useEffect(() => {
-    async function getProfile() {
-      dispatch(getProfile(token))
-    }
-
+    dispatch(getProfileAction(token))
     if (!token) {
       router.push('/auth/login')
     }
-
-    getProfile()
-  }, [token, router, dispatch])
+  }, [dispatch, token, router])
 
   return (
     <>
@@ -74,6 +82,16 @@ export default function CreatePin({ token }) {
                 Secure Your Account, Your Wallet, and Your Data With 6 Digits
                 PIN That You Created Yourself.
               </div>
+              {errMessage && (
+                <div className="alert alert-error text-xl text-white text-center">
+                  {errMessage}
+                </div>
+              )}
+              {successMessage && (
+                <div className="alert alert-success text-xl text-white text-center">
+                  {successMessage}
+                </div>
+              )}
               <div className="text-[#3A3D4299] tracking-wide">
                 Create 6 digits pin to secure all your money and your data in
                 FazzPay app. Keep it secret and don&apos;t tell anyone about
