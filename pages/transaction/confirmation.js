@@ -5,8 +5,28 @@ import Sidebar from '@/components/sidebar'
 import Footer from '@/components/footer'
 import Head from 'next/head'
 import PinModal from '@/components/pin-modal'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { withIronSessionSsr } from 'iron-session/next'
+import { getProfileAction } from '@/redux/actions/profile'
+import cookieConfig from '@/helpers/cookie-config'
 
-export default function Confirmation() {
+export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
+  const token = req.session.token || null
+  return {
+    props: {
+      token,
+    },
+  }
+}, cookieConfig)
+
+export default function Confirmation({ token }) {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getProfileAction(token))
+  }, [dispatch, token])
+
   return (
     <>
       <Head>

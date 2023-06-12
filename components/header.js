@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { FiArrowDown, FiArrowUp, FiBell } from 'react-icons/fi'
-import Picture from '../public/picture.jpg'
+import Picture from '../public/images.png'
 import { useSelector } from 'react-redux'
 
 export default function Header() {
@@ -15,12 +15,21 @@ export default function Header() {
         <div className="flex justify-center items-center gap-14">
           <div className="flex gap-3">
             <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-              <Image
-                src={profile.picture}
-                width={50}
-                height={50}
-                alt=""
-              ></Image>
+              {profile.picture ? (
+                <Image
+                  src={profile.picture}
+                  width={50}
+                  height={50}
+                  alt="Profile Picture"
+                ></Image>
+              ) : (
+                <Image
+                  src={Picture}
+                  width={50}
+                  height={50}
+                  alt="Profile Picture"
+                ></Image>
+              )}
             </div>
             <div className="flex flex-col gap-1">
               <div className="font-semibold">{profile.fullName}</div>

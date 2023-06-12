@@ -4,8 +4,28 @@ import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'
 import Footer from '@/components/footer'
 import Head from 'next/head'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { withIronSessionSsr } from 'iron-session/next'
+import { getProfileAction } from '@/redux/actions/profile'
+import cookieConfig from '@/helpers/cookie-config'
 
-export default function History() {
+export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
+  const token = req.session.token || null
+  return {
+    props: {
+      token,
+    },
+  }
+}, cookieConfig)
+
+export default function History({ token }) {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getProfileAction(token))
+  }, [dispatch, token])
+
   return (
     <>
       <Head>
