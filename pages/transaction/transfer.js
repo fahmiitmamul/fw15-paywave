@@ -83,6 +83,7 @@ export default function Transfer({ token }) {
             <div>
               <div className="relative">
                 <input
+                  onChange={(e) => setSearch(e.target.value)}
                   type="text"
                   placeholder="Search receiver here"
                   className="input input-bordered w-full max-w-full px-10 bg-gray-200"
