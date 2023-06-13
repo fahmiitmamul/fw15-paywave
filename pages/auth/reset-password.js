@@ -10,12 +10,14 @@ import { RxEyeOpen } from 'react-icons/rx'
 import { useState } from 'react'
 import * as Yup from 'yup'
 import http from '@/helpers/http'
+import { useRouter } from 'next/router'
 
 export default function ResetPassword() {
   const [open, setOpen] = useState(false)
   const [errorMsg, seterrorMsg] = useState('')
   const [successMsg, setsuccessMsg] = useState('')
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   const validationSchema = Yup.object({
     email: Yup.string().required('Email is required !'),
@@ -56,6 +58,7 @@ export default function ResetPassword() {
     setTimeout(() => {
       seterrorMsg(false)
       setsuccessMsg(false)
+      router.push('/auth/login')
     }, 3000)
   }
 

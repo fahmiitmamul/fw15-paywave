@@ -45,6 +45,8 @@ export default function ForgotPassword() {
         setSuccessMsg(false)
       }, 3000)
     }
+
+    setLoading(false)
   }
 
   return (
