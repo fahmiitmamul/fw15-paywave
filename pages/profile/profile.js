@@ -7,6 +7,7 @@ import { FiArrowRight } from 'react-icons/fi'
 import TopUpModal from '@/components/topup-modal'
 import { useSelector } from 'react-redux'
 import Logout from '../auth/logout'
+import Link from 'next/link'
 
 export default function Profile() {
   const profile = useSelector((state) => state.profile.data)
@@ -32,24 +33,24 @@ export default function Profile() {
               </button>
               <div className="text-xl font-bold">{profile.fullName}</div>
               <div className="text-gray-500">{profile.email}</div>
-              <div className="w-[50%]">
+              <Link href="/profile/personal-info" className="w-[50%]">
                 <div className="flex justify-between items-center w-full p-7 bg-gray-300 rounded-lg cursor-pointer shadow-lg">
                   <div className="font-bold">Personal Information</div>
                   <FiArrowRight size={25} />
                 </div>
-              </div>
-              <div className="w-[50%]">
+              </Link>
+              <Link href="/profile/change-password" className="w-[50%]">
                 <div className="flex justify-between items-center w-full p-7 bg-gray-300 rounded-lg cursor-pointer shadow-lg">
                   <div className="font-bold">Change Password</div>
                   <FiArrowRight size={25} />
                 </div>
-              </div>
-              <div className="w-[50%]">
+              </Link>
+              <Link href="/profile/change-pin" className="w-[50%]">
                 <div className="flex justify-between items-center w-full p-7 bg-gray-300 rounded-lg cursor-pointer shadow-lg">
                   <div className="font-bold">Change PIN</div>
                   <FiArrowRight size={25} />
                 </div>
-              </div>
+              </Link>
               <div className="w-[50%]">
                 <div className="flex justify-between items-center w-full p-7 bg-gray-300 rounded-lg cursor-pointer shadow-lg">
                   <Logout />
