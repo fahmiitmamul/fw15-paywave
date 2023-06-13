@@ -34,6 +34,7 @@ export default function CreatePin({ token }) {
       setLoading(true)
       const email = profile.email
       const form = new URLSearchParams({ email: email, code: pin })
+      alert(form)
       const { data } = await http(token).post('/auth/set-pin', form)
       setLoading(false)
 
@@ -42,7 +43,7 @@ export default function CreatePin({ token }) {
       }
 
       setTimeout(() => {
-        router.push('/auth/login')
+        router.push('/dashboard')
       }, 3000)
     } catch (err) {
       const errMsg = err.response?.data?.message
@@ -58,9 +59,6 @@ export default function CreatePin({ token }) {
 
   useEffect(() => {
     dispatch(getProfileAction(token))
-    if (!token) {
-      router.push('/auth/login')
-    }
   }, [dispatch, token, router])
 
   return (
