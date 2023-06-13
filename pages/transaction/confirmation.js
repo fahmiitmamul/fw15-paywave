@@ -11,6 +11,7 @@ import { withIronSessionSsr } from 'iron-session/next'
 import { getProfileAction } from '@/redux/actions/profile'
 import cookieConfig from '@/helpers/cookie-config'
 import { useRouter } from 'next/router'
+import { setMessage } from '@/redux/reducers/message'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null

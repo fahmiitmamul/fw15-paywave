@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { withIronSessionSsr } from 'iron-session/next'
 import { getProfileAction } from '@/redux/actions/profile'
+import { setMessage } from '@/redux/reducers/message'
 import cookieConfig from '@/helpers/cookie-config'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
