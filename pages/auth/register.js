@@ -13,6 +13,8 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Person from '../../public/person.svg'
 import axios from 'axios'
+import cookieConfig from '@/helpers/cookie-config'
+import { withIronSessionSsr } from 'iron-session/next'
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
@@ -63,26 +65,18 @@ export default function Register() {
       const { data } = await axios.post('../api/register', form.toString())
       setLoading(false)
       if (data?.results?.token) {
-        router.push('/auth/dashboard')
+        router.push('/auth/create-pin')
       }
     } catch (err) {
       const msg = err.response?.data?.message
-
       if (msg) {
         setErrorMessage('Error register')
       }
-
       setTimeout(() => {
         setSuccessMessage(false)
       }, 3000)
       setLoading(false)
     }
-  }
-
-  if (successMessage) {
-    setTimeout(() => {
-      router.push('/auth/create-pin')
-    }, 3000)
   }
 
   return (
