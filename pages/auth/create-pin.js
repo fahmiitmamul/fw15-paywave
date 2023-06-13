@@ -33,15 +33,12 @@ export default function CreatePin({ token }) {
     try {
       setLoading(true)
       const email = profile.email
-      const form = new URLSearchParams({ email: email, code: pin })
-      alert(form)
+      const form = new URLSearchParams({ email: email, pin: pin }).toString()
       const { data } = await http(token).post('/auth/set-pin', form)
       setLoading(false)
-
       if (data) {
         setSuccessMessage('Pin set successfully')
       }
-
       setTimeout(() => {
         router.push('/dashboard')
       }, 3000)
