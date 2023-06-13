@@ -13,6 +13,7 @@ import cookieConfig from '@/helpers/cookie-config'
 import { useRouter } from 'next/router'
 import { setMessage } from '@/redux/reducers/message'
 import { FiUser } from 'react-icons/fi'
+import moment from 'moment'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null
@@ -85,7 +86,9 @@ export default function Confirmation({ token }) {
               </div>
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div>Date & Time</div>
-                <div className="font-bold text-xl">May 11, 2020 0 12.20</div>
+                <div className="font-bold text-xl">
+                  {moment().format('MMMM Do YYYY, h:mm a')}
+                </div>
               </div>
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div>Notes</div>
