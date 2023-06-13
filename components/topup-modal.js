@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import http from '@/helpers/http'
+import { useDispatch } from 'react-redux'
+import { getProfileAction } from '@/redux/actions/profile'
 
 export default function TopUpModal({ userToken }) {
   const [values, setValues] = useState('')
+  const dispatch = useDispatch()
   async function doSubmit() {
     try {
       const amount = values
@@ -10,6 +13,9 @@ export default function TopUpModal({ userToken }) {
         amount,
       }).toString()
       const { data } = await http(userToken).post('/transactions/topup', form)
+      if (data) {
+        dispatch(getProfileAction(userToken))
+      }
     } catch (err) {
       console.log(err)
     }
