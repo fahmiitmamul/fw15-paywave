@@ -202,7 +202,7 @@ export default function Dashboard({ token }) {
       </div>
       <Footer />
       <input type="checkbox" id="topup-modal" className="modal-toggle" />
-      <TopUpModal />
+      <TopUpModal userToken={token} />
     </>
   )
 }

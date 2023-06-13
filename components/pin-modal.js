@@ -33,7 +33,6 @@ export default function PinModal({ userToken }) {
     } catch (err) {
       console.log(err)
     }
-    // const { data } = await http(token).post("/transactions/transfer", form)
   }
 
   return (

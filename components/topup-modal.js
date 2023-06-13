@@ -1,4 +1,19 @@
-export default function TopUpModal() {
+import { useState } from 'react'
+import http from '@/helpers/http'
+
+export default function TopUpModal({ userToken }) {
+  const [values, setValues] = useState('')
+  async function doSubmit() {
+    try {
+      const amount = values
+      const form = new URLSearchParams({
+        amount,
+      }).toString()
+      const { data } = await http(userToken).post('/transactions/topup', form)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <>
       <div className="modal">
@@ -9,6 +24,7 @@ export default function TopUpModal() {
             <input
               type="number"
               className="input input-bordered w-full font-bold text-xl px-10"
+              onChange={(e) => setValues(e.target.value)}
             ></input>
             <div className="absolute top-2.5 left-3 font-bold text-xl">Rp.</div>
           </div>
@@ -22,6 +38,7 @@ export default function TopUpModal() {
             <label
               htmlFor="topup-modal"
               className="btn btn-success normal-case text-white"
+              onClick={doSubmit}
             >
               Continue
             </label>
