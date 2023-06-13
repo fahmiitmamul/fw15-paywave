@@ -13,7 +13,7 @@ export default function Header() {
           PayWave
         </Link>
         <div className="flex justify-center items-center gap-14">
-          <div className="flex gap-3">
+          <Link href="/profile/profile" className="flex gap-3">
             <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
               {profile.picture ? (
                 <Image
@@ -39,7 +39,7 @@ export default function Header() {
                 {profile.email === null ? 'Not set' : profile.email}
               </div>
             </div>
-          </div>
+          </Link>
           <div className="z-10">
             <div className="dropdown dropdown-end">
               <label
