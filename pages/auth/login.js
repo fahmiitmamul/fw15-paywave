@@ -60,12 +60,16 @@ export default function Login() {
       const { data } = await axios.post('../api/login', form.toString())
       setLoading(false)
       if (data?.results?.token) {
-        router.push('/auth/dashboard')
+        router.push('/dashboard')
+      }
+
+      if (data?.message === 'auth_wrong_password') {
+        setMessage('Wrong credentials')
       }
     } catch (err) {
       const msg = err.response?.data?.message
 
-      if (msg.includes('wrong_password')) {
+      if (msg) {
         setMessage('Wrong credentials')
       }
 
@@ -83,6 +87,12 @@ export default function Login() {
 
   function setInput() {
     setOpen(!open)
+  }
+
+  if (message) {
+    setTimeout(() => {
+      setMessage(false)
+    }, 3000)
   }
 
   useEffect(() => {
