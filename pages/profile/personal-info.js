@@ -42,7 +42,7 @@ export default function PersonalInfo() {
                 <div className="flex flex-col">
                   <div>Phone Number</div>
                   <div className="font-bold text-xl">
-                    {profile.phones.length < 1 ? 'Not set' : profile.phones}
+                    {profile.phones?.length < 1 ? 'Not set' : profile.phones}
                   </div>
                 </div>
               </div>
