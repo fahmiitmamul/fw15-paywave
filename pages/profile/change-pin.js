@@ -44,7 +44,6 @@ export default function ChangePin({ token }) {
   }
 
   async function doSubmit(values) {
-    e.preventDefault()
     try {
       setLoading(true)
       const oldPin = values.oldPin
