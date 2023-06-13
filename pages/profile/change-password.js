@@ -8,11 +8,25 @@ import { Formik } from 'formik'
 import { RxEyeClosed } from 'react-icons/rx'
 import { RxEyeOpen } from 'react-icons/rx'
 import { useState } from 'react'
+import { withIronSessionSsr } from 'iron-session/next'
+import cookieConfig from '@/helpers/cookie-config'
+import http from '@/helpers/http'
 
-export default function ChangePassword() {
+export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
+  const token = req.session.token || null
+  return {
+    props: {
+      token,
+    },
+  }
+}, cookieConfig)
+
+export default function ChangePassword({ token }) {
   const [openCurrent, setOpenCurrent] = useState(false)
   const [openNew, setOpenNew] = useState(false)
   const [openConfirm, setOpenConfirm] = useState(false)
+  const [message, setMessage] = useState('')
+  const [errormessage, seterrormessage] = useState('')
 
   const validationSchema = Yup.object({
     currentPassword: Yup.string().required('Current Password is required !'),
@@ -32,9 +46,35 @@ export default function ChangePassword() {
     setOpenConfirm(!openConfirm)
   }
 
-  function doSubmit(values) {
-    alert(JSON.stringify(values))
+  async function doSubmit(values) {
+    try {
+      const oldPassword = values.currentPassword
+      const newPassword = values.newPassword
+      const confirmPassword = values.confirmPassword
+      const form = new URLSearchParams({
+        oldPassword,
+        newPassword,
+        confirmPassword,
+      }).toString()
+      const { data } = await http(token).patch('/profile/change-password', form)
+      if (data) {
+        setMessage('Change password successfully')
+      }
+    } catch (err) {
+      const message = err.response?.data?.message
+      if (message === 'profile_change_password_wrong_old') {
+        seterrormessage('Wrong old password')
+      }
+    }
   }
+
+  setTimeout(() => {
+    if (message || errormessage) {
+      setMessage(false)
+      seterrormessage(false)
+    }
+  }, 3000)
+
   return (
     <>
       <Header />
@@ -50,6 +90,18 @@ export default function ChangePassword() {
               </div>
             </div>
             <div className="flex flex-col justify-center items-center gap-5">
+              <div className="w-1/2">
+                {message && (
+                  <div className="alert alert-success text-lg text-white">
+                    {message}
+                  </div>
+                )}
+                {errormessage && (
+                  <div className="alert alert-error text-lg text-white">
+                    {errormessage}
+                  </div>
+                )}
+              </div>
               <Formik
                 initialValues={{
                   currentPassword: '',
