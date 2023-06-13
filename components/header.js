@@ -32,8 +32,12 @@ export default function Header() {
               )}
             </div>
             <div className="flex flex-col gap-1">
-              <div className="font-semibold">{profile.fullName}</div>
-              <div className="text-gray-600">{profile.email}</div>
+              <div className="font-semibold">
+                {profile.fullName === null ? 'Name not set' : profile.fullName}
+              </div>
+              <div className="text-gray-600">
+                {profile.email === null ? 'Not set' : profile.email}
+              </div>
             </div>
           </div>
           <div className="z-10">

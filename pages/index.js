@@ -16,7 +16,7 @@ import { FaArrowLeft } from 'react-icons/fa'
 import { FaArrowRight } from 'react-icons/fa'
 import { withIronSessionSsr } from 'iron-session/next'
 import cookieConfig from '@/helpers/cookie-config'
-import Logout from './auth/logout'
+import HomeLogout from './auth/homelogout'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { getProfileAction } from '@/redux/actions/profile'
@@ -47,7 +47,7 @@ export default function Home({ token }) {
           <div className="text-[29px] font-bold text-white">PayWave</div>
           <div className="flex gap-10">
             {token ? (
-              <Logout />
+              <HomeLogout />
             ) : (
               <>
                 <Link

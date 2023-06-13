@@ -5,12 +5,82 @@ import Image from 'next/image'
 import { BsPencilSquare } from 'react-icons/bs'
 import { FiArrowRight } from 'react-icons/fi'
 import TopUpModal from '@/components/topup-modal'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Logout from '../auth/logout'
+import Default from '../../public/images.png'
 import Link from 'next/link'
+import { useState } from 'react'
+import http from '@/helpers/http'
+import cookieConfig from '@/helpers/cookie-config'
+import { withIronSessionSsr } from 'iron-session/next'
+import { getProfileAction } from '@/redux/actions/profile'
 
-export default function Profile() {
+export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
+  const token = req.session.token || null
+  return {
+    props: {
+      token,
+    },
+  }
+}, cookieConfig)
+
+export default function Profile({ token }) {
   const profile = useSelector((state) => state.profile.data)
+  const [selectedPicture, setSelectedPicture] = useState('')
+  const [pictureURI, setPictureURI] = useState('')
+  const [message, setMessage] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
+  const dispatch = useDispatch()
+
+  const fileToDataUrl = (file) => {
+    const reader = new FileReader()
+    reader.addEventListener('load', () => {
+      setPictureURI(reader.result)
+    })
+    reader.readAsDataURL(file)
+  }
+
+  const changePicture = (e) => {
+    const file = e.target.files[0]
+    setSelectedPicture(file)
+    fileToDataUrl(file)
+  }
+
+  if (message || errorMsg) {
+    setTimeout(() => {
+      setMessage(false)
+      setErrorMsg(false)
+      setPictureURI(false)
+    }, 3000)
+  }
+
+  const doSubmit = async (e) => {
+    e.preventDefault()
+    const form = new FormData()
+    if (selectedPicture) {
+      form.append('picture', selectedPicture)
+    }
+
+    try {
+      const { data } = await http(token).patch('/profile', form, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      if (data) {
+        setMessage('Change profile photo successfully')
+      }
+      dispatch(getProfileAction(token))
+    } catch (err) {
+      const results = err.response?.data?.message
+      if (results) {
+        setErrorMsg('Error change photo')
+      }
+    }
+
+    setSelectedPicture(false)
+  }
+
   return (
     <>
       <Header />
@@ -19,18 +89,66 @@ export default function Profile() {
         <div className="w-full flex flex-col gap-5">
           <div className="flex flex-col gap-10 w-full rounded-2xl shadow-2xl h-full p-10">
             <div className="flex flex-col gap-5 justify-center items-center">
+              {message && (
+                <div className="alert alert-success text-lg text-white max-w-lg">
+                  {message}
+                </div>
+              )}
+              {errorMsg && (
+                <div className="alert alert-error text-lg text-white max-w-lg">
+                  {errorMsg}
+                </div>
+              )}
               <div className="w-[82px] h-[82px] rounded-lg overflow-hidden">
-                <Image
-                  width={80}
-                  height={80}
-                  src={profile.picture}
-                  alt=""
-                ></Image>
+                {selectedPicture && (
+                  <Image width={80} height={80} src={pictureURI} alt=""></Image>
+                )}
+                {!selectedPicture && !profile.picture && (
+                  <Image width={80} height={80} src={Default} alt=""></Image>
+                )}
+                {!selectedPicture && profile.picture && (
+                  <Image
+                    width={80}
+                    height={80}
+                    src={profile.picture}
+                    alt=""
+                  ></Image>
+                )}
               </div>
-              <button className="flex justify-center items-center gap-2">
-                <BsPencilSquare />
-                <div>Edit</div>
-              </button>
+              <form
+                onSubmit={doSubmit}
+                className="flex flex-col gap-3 justify-center items-center"
+              >
+                <button
+                  type="button"
+                  className="flex justify-center items-center gap-2"
+                >
+                  <BsPencilSquare />
+                  <div className="relative">
+                    <input
+                      type="file"
+                      id="customFileInput"
+                      className="custom-file-input"
+                      onChange={changePicture}
+                    />
+                    <label
+                      htmlFor="customFileInput"
+                      className="custom-file-label"
+                    >
+                      Edit
+                    </label>
+                  </div>
+                </button>
+                {pictureURI && (
+                  <button
+                    type="submit"
+                    className="btn btn-primary normal-case text-white"
+                  >
+                    Save Changes
+                  </button>
+                )}
+              </form>
+
               <div className="text-xl font-bold">{profile.fullName}</div>
               <div className="text-gray-500">{profile.email}</div>
               <Link href="/profile/personal-info" className="w-[50%]">

@@ -51,7 +51,7 @@ export default function Dashboard({ token }) {
             <div className="text-white">
               <div>Balance</div>
               <div className="text-[40px] font-semibold">
-                Rp{profile.balance}
+                Rp{profile.balance == null ? ' 0' : profile.balance}
               </div>
               <div>{profile.email}</div>
             </div>

@@ -37,9 +37,10 @@ export default function ChangePin({ token }) {
     dispatch(getProfileAction(token))
   }, [dispatch, token])
 
-  if (errormessage) {
+  if (errormessage || successMsg) {
     setTimeout(() => {
       seterrormessage(false)
+      setsuccessMsg(false)
     }, 3000)
   }
 

@@ -4,6 +4,7 @@ import { RxDashboard } from 'react-icons/rx'
 import { BsPersonCircle } from 'react-icons/bs'
 import { FiLogOut } from 'react-icons/fi'
 import Logout from '@/pages/auth/logout'
+import Sidebarlogout from '../pages/auth/sidebarlogout'
 import Link from 'next/link'
 
 export default function Sidebar() {
@@ -44,7 +45,7 @@ export default function Sidebar() {
           <div>
             <div className="flex gap-5 items-center text-xl cursor-pointer hover:text-red-500">
               <FiLogOut />
-              <Logout />
+              <Sidebarlogout />
             </div>
           </div>
         </div>
