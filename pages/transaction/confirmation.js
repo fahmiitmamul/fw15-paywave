@@ -105,7 +105,7 @@ export default function Confirmation({ token }) {
       </div>
       <Footer />
       <input type="checkbox" id="pinModal" className="modal-toggle" />
-      <PinModal />
+      <PinModal userToken={token} />
     </>
   )
 }

@@ -13,6 +13,8 @@ import { withIronSessionSsr } from 'iron-session/next'
 import { getProfileAction } from '@/redux/actions/profile'
 import cookieConfig from '@/helpers/cookie-config'
 import { setMessage } from '@/redux/reducers/message'
+import { useSelector } from 'react-redux'
+import { FiUser } from 'react-icons/fi'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null
@@ -26,6 +28,10 @@ export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
 export default function TransferSuccess({ token }) {
   const dispatch = useDispatch()
   const router = useRouter()
+  const recipient = useSelector((state) => state.transfer.user)
+  const amount = useSelector((state) => state.transfer.amount)
+  const notes = useSelector((state) => state.transfer.notes)
+  const profile = useSelector((state) => state.profile.data)
 
   useEffect(() => {
     dispatch(getProfileAction(token))
@@ -53,11 +59,11 @@ export default function TransferSuccess({ token }) {
             <div className="flex flex-col gap-5 w-full h-[500px] overflow-scroll">
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div>Amount</div>
-                <div className="font-bold text-xl">Rp.100.000</div>
+                <div className="font-bold text-xl">Rp {amount}</div>
               </div>
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div>Balance Left</div>
-                <div className="font-bold text-xl">Rp.20.000</div>
+                <div className="font-bold text-xl">Rp {profile.balance}</div>
               </div>
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div>Date & Time</div>
@@ -65,17 +71,29 @@ export default function TransferSuccess({ token }) {
               </div>
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div>Notes</div>
-                <div className="font-bold text-xl">For buying some socks</div>
+                <div className="font-bold text-xl">{notes}</div>
               </div>
             </div>
             <div className="font-bold text-2xl">Transfer To</div>
             <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
-              <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                <Image src={Picture} alt=""></Image>
-              </div>
+              {!recipient.picture && (
+                <div className="w-12 h-12 bg-white border rounded flex justify-center items-center">
+                  <FiUser size={35} />
+                </div>
+              )}
+              {recipient.picture && (
+                <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
+                  <Image
+                    src={recipient.picture}
+                    alt={recipient.fullName || recipient.email}
+                    width={60}
+                    height={60}
+                  ></Image>
+                </div>
+              )}
               <div className="flex flex-col gap-1.5">
-                <div className="font-bold">Samuel Suhi</div>
-                <div className="text-gray-400">+62 813-8492-9994</div>
+                <div className="font-bold">{recipient.fullName}</div>
+                <div className="text-gray-400">{recipient.email}</div>
               </div>
             </div>
             <div className="flex gap-5 w-full justify-end">

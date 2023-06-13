@@ -1,11 +1,39 @@
+import { useRouter } from 'next/router'
 import PinInput from './pin-input'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import http from '@/helpers/http'
 
-export default function PinModal() {
-  const [pin, setPin] = useState('')
+export default function PinModal({ userToken }) {
+  const [pins, setPin] = useState('')
+  const router = useRouter()
+  const recipients = useSelector((state) => state.transfer.user)
+  const recipientAmount = useSelector((state) => state.transfer.amount)
+  const recipientNotes = useSelector((state) => state.transfer.notes)
 
-  function doSubmit() {
-    alert(pin)
+  async function doSubmit() {
+    try {
+      const recipientId = recipients.id
+      const notes = recipientNotes
+      const amount = recipientAmount
+      const pin = pins
+      const form = new URLSearchParams({
+        recipientId,
+        notes,
+        amount,
+        pin,
+      }).toString()
+      const { data } = await http(userToken).post(
+        '/transactions/transfer',
+        form
+      )
+      if (data) {
+        router.push('/transaction/transfer-success')
+      }
+    } catch (err) {
+      console.log(err)
+    }
+    // const { data } = await http(token).post("/transactions/transfer", form)
   }
 
   return (
