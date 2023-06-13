@@ -17,6 +17,7 @@ import cookieConfig from '@/helpers/cookie-config'
 import { useRouter } from 'next/router'
 import { setMessage } from '@/redux/reducers/message'
 import http from '@/helpers/http'
+import Link from 'next/link'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null
@@ -74,10 +75,13 @@ export default function Dashboard({ token }) {
               <div>{profile.email}</div>
             </div>
             <div className="flex flex-col gap-5">
-              <button className="flex justify-between items-center btn btn-primary rounded-xl normal-case hover:bg-white hover:text-black text-white bg-[#FFFFFF33] border-white">
+              <Link
+                href="/transaction/transfer"
+                className="flex justify-between items-center btn btn-primary rounded-xl normal-case hover:bg-white hover:text-black text-white bg-[#FFFFFF33] border-white"
+              >
                 <FiArrowUp size={25} />
                 Transfer
-              </button>
+              </Link>
               <label
                 htmlFor="topup-modal"
                 className="flex justify-between items-center normal-case btn btn-primary rounded-xl hover:bg-white hover:text-black text-white bg-[#FFFFFF33] border-white"
