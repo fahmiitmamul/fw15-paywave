@@ -1,18 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import PhoneLogin from '../../public/phone-login.svg'
 import Head from 'next/head'
 import Mail from '../../public/mail.svg'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import { useRouter } from 'next/router'
+import http from '@/helpers/http'
 
 export default function ForgotPassword() {
+  const [successMsg, setSuccessMsg] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
+  const router = useRouter()
   const validationSchema = Yup.object({
-    code: Yup.string().required('Code is required !'),
+    email: Yup.string().required('Email is required !'),
   })
 
-  function doSubmit(values) {
-    alert(JSON.stringify(values))
+  async function doSubmit(values) {
+    try {
+      const email = values.email
+      const form = new URLSearchParams({ email }).toString()
+      const { data } = await http().post('/auth/forgot-password', form)
+      if (data) {
+        setSuccessMsg('Request to reset password has been sent')
+      }
+      setTimeout(() => {
+        router.push('/auth/reset-password')
+      }, 3000)
+    } catch (err) {
+      const message = err.response?.data?.message
+      if (message === 'auth_wrong_user') {
+        setErrorMsg('User not found')
+      }
+
+      if (message === 'auth_forgot_already_requested') {
+        setErrorMsg('Request already sent')
+      }
+
+      setTimeout(() => {
+        setErrorMsg(false)
+        setSuccessMsg(false)
+      }, 3000)
+    }
   }
 
   return (
@@ -42,13 +71,23 @@ export default function ForgotPassword() {
               Did You Forgot Your Password? Don&apos;t Worry, You Can Reset Your
               Password In a Minutes.
             </div>
+            {errorMsg && (
+              <div className="alert alert-error text-xl text-white text-center">
+                {errorMsg}
+              </div>
+            )}
+            {successMsg && (
+              <div className="alert alert-success text-xl text-white text-center">
+                {successMsg}
+              </div>
+            )}
             <div className="text-[#3A3D4299] tracking-wide">
               To reset your password, you must type your e-mail and we will send
               a link to your email and you will be directed to the reset
               password screens.
             </div>
             <Formik
-              initialValues={{ code: '' }}
+              initialValues={{ email: '' }}
               validationSchema={validationSchema}
               onSubmit={doSubmit}
             >
@@ -68,21 +107,23 @@ export default function ForgotPassword() {
                         <div className="max-w-lg relative">
                           <input
                             type="text"
-                            name="code"
-                            id="code"
-                            value={values.code}
+                            name="email"
+                            id="email"
+                            value={values.email}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             className={`border-b-2 border-gray-300 focus:border-indigo-500 focus:outline-none w-full transition duration-300 ease-in-out px-8 py-1 ${
-                              touched.code && errors.code && 'border-b-red-500'
+                              touched.email &&
+                              errors.email &&
+                              'border-b-red-500'
                             }`}
-                            placeholder="Enter your code"
+                            placeholder="Enter your email"
                           ></input>
                           <Image src={Mail} alt="" className="absolute top-1" />
-                          {errors.code && touched.code && (
-                            <label htmlFor="code" className="label">
+                          {errors.email && touched.email && (
+                            <label htmlFor="email" className="label">
                               <span className="label-text-alt text-error">
-                                {errors.code}
+                                {errors.email}
                               </span>
                             </label>
                           )}
