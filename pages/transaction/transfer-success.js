@@ -15,6 +15,7 @@ import cookieConfig from '@/helpers/cookie-config'
 import { setMessage } from '@/redux/reducers/message'
 import { useSelector } from 'react-redux'
 import { FiUser } from 'react-icons/fi'
+import { clearTransferState } from '@/redux/reducers/transfer'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null
@@ -40,6 +41,11 @@ export default function TransferSuccess({ token }) {
       dispatch(setMessage('You have to login first !'))
     }
   }, [dispatch, token, router])
+
+  async function goHome() {
+    router.push('/dashboard')
+    dispatch(clearTransferState())
+  }
 
   return (
     <>
@@ -101,7 +107,10 @@ export default function TransferSuccess({ token }) {
                 <BsDownload />
                 Download PDF
               </button>
-              <button className="btn btn-primary normal-case text-white">
+              <button
+                onClick={goHome}
+                className="btn btn-primary normal-case text-white"
+              >
                 Back to home
               </button>
             </div>
