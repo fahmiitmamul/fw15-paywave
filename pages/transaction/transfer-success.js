@@ -23,10 +23,14 @@ export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
 
 export default function TransferSuccess({ token }) {
   const dispatch = useDispatch()
+  const router = useRouter()
 
   useEffect(() => {
     dispatch(getProfileAction(token))
-  }, [dispatch, token])
+    if (!token) {
+      router.push('/auth/login')
+    }
+  }, [dispatch, token, router])
 
   return (
     <>

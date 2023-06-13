@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getProfileAction } from '@/redux/actions/profile'
 import { withIronSessionSsr } from 'iron-session/next'
 import cookieConfig from '@/helpers/cookie-config'
+import { useRouter } from 'next/router'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null
@@ -25,11 +26,15 @@ export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
 
 export default function Dashboard({ token }) {
   const profile = useSelector((state) => state.profile.data)
-
   const dispatch = useDispatch()
+  const router = useRouter()
+
   useEffect(() => {
     dispatch(getProfileAction(token))
-  }, [dispatch, token])
+    if (!token) {
+      router.push('/auth/login')
+    }
+  }, [dispatch, token, router])
 
   return (
     <>
