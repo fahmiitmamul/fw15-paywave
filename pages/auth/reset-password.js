@@ -15,6 +15,7 @@ export default function ResetPassword() {
   const [open, setOpen] = useState(false)
   const [errorMsg, seterrorMsg] = useState('')
   const [successMsg, setsuccessMsg] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const validationSchema = Yup.object({
     email: Yup.string().required('Email is required !'),
@@ -27,16 +28,18 @@ export default function ResetPassword() {
   }
 
   async function doSubmit(values) {
+    setLoading(true)
     try {
       const email = values.email
-      const password = values.password
-      const confirmPassword = values.confirmPassword
+      const newPassword = values.password
+      const confirmPassword = values.password
       const form = new URLSearchParams({
         email,
-        password,
+        newPassword,
         confirmPassword,
       }).toString()
       const { data } = await http().post('/auth/reset-password', form)
+      setLoading(false)
       if (data) {
         setsuccessMsg('Password has been set successfully')
       }
@@ -46,6 +49,14 @@ export default function ResetPassword() {
         seterrorMsg('Error reset password')
       }
     }
+    setLoading(false)
+  }
+
+  if (errorMsg || successMsg) {
+    setTimeout(() => {
+      seterrorMsg(false)
+      setsuccessMsg(false)
+    }, 3000)
   }
 
   return (
