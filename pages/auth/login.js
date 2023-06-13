@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
 import PhoneLogin from '../../public/phone-login.svg'
 import Head from 'next/head'
@@ -14,6 +14,8 @@ import { RxEyeOpen } from 'react-icons/rx'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { withIronSessionSsr } from 'iron-session/next'
+import { useDispatch, useSelector } from 'react-redux'
+import { clearMessage } from '@/redux/reducers/message'
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
@@ -41,7 +43,9 @@ export default function Login() {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
+  const msg = useSelector((state) => state.message.message)
   const router = useRouter()
+  const dispatch = useDispatch()
 
   async function doLogin(values) {
     try {
@@ -81,6 +85,14 @@ export default function Login() {
     setOpen(!open)
   }
 
+  useEffect(() => {
+    if (msg) {
+      setTimeout(() => {
+        dispatch(clearMessage())
+      }, 3000)
+    }
+  }, [dispatch, msg])
+
   return (
     <>
       <Head>
@@ -117,6 +129,9 @@ export default function Login() {
               <div className="alert alert-error text-lg text-white">
                 {message}
               </div>
+            )}
+            {msg && (
+              <div className="alert alert-error text-lg text-white">{msg}</div>
             )}
             <Formik
               initialValues={{ email: '', password: '' }}

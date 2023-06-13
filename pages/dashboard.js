@@ -14,6 +14,7 @@ import { getProfileAction } from '@/redux/actions/profile'
 import { withIronSessionSsr } from 'iron-session/next'
 import cookieConfig from '@/helpers/cookie-config'
 import { useRouter } from 'next/router'
+import { setMessage } from '@/redux/reducers/message'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null
@@ -33,6 +34,7 @@ export default function Dashboard({ token }) {
     dispatch(getProfileAction(token))
     if (!token) {
       router.push('/auth/login')
+      dispatch(setMessage('You have to login first !'))
     }
   }, [dispatch, token, router])
 

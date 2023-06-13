@@ -29,6 +29,7 @@ export default function TransferSuccess({ token }) {
     dispatch(getProfileAction(token))
     if (!token) {
       router.push('/auth/login')
+      dispatch(setMessage('You have to login first !'))
     }
   }, [dispatch, token, router])
 
