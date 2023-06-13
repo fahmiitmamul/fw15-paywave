@@ -16,6 +16,7 @@ import { setRecipient as setRecipientAction } from '@/redux/reducers/transfer'
 import cookieConfig from '@/helpers/cookie-config'
 import http from '@/helpers/http'
 import { FiUser } from 'react-icons/fi'
+import { useState, useCallback } from 'react'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null
@@ -28,10 +29,10 @@ export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
 
 export default function Transfer({ token }) {
   const dispatch = useDispatch()
-  const [recipient, setRecipient] = React.useState({})
+  const [recipient, setRecipient] = useState({})
   const router = useRouter()
-  const [search, setSearch] = React.useState('')
-  const getUsers = React.useCallback(
+  const [search, setSearch] = useState('')
+  const getUsers = useCallback(
     async (page = 1, search = '') => {
       const { data } = await http(token).get('/users', {
         params: {
@@ -106,6 +107,8 @@ export default function Transfer({ token }) {
                               <Image
                                 src={item.picture}
                                 alt={item.fullName || item.email}
+                                width={60}
+                                height={60}
                               ></Image>
                             </div>
                           )}
@@ -119,6 +122,27 @@ export default function Transfer({ token }) {
                   ))}
                 </>
               )}
+            </div>
+            <div className="flex justify-center items-center gap-4">
+              <button
+                onClick={() => getUsers(recipient.pageInfo?.page - 1, search)}
+                disabled={recipient.pageInfo?.page <= 1}
+                className="btn bg-primary text-white border-none normal-case hover:bg-primary"
+              >
+                Prev
+              </button>
+              <div className="font-semibold">
+                {recipient.pageInfo?.page} of {recipient.pageInfo?.totalPage}
+              </div>
+              <button
+                onClick={() => getUsers(recipient.pageInfo?.page + 1, search)}
+                disabled={
+                  recipient.pageInfo?.page === recipient.pageInfo?.totalPage
+                }
+                className="btn bg-primary text-white border-none normal-case hover:bg-primary"
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>
