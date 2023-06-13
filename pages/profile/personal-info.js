@@ -2,8 +2,11 @@ import Footer from '@/components/footer'
 import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'
 import TopUpModal from '@/components/topup-modal'
+import { useSelector } from 'react-redux'
+import Link from 'next/link'
 
 export default function PersonalInfo() {
+  const profile = useSelector((state) => state.profile.data)
   return (
     <>
       <Header />
@@ -22,22 +25,24 @@ export default function PersonalInfo() {
             <div className="flex flex-col gap-5 overflow-scroll">
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div>First Name</div>
-                <div className="font-bold text-xl">Robert</div>
+                <div className="font-bold text-xl">{profile.fullName}</div>
               </div>
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div>Last Name</div>
-                <div className="font-bold text-xl">Chandler</div>
+                <div className="font-bold text-xl">{profile.fullName}</div>
               </div>
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div>Verified E-mail</div>
-                <div className="font-bold text-xl">pewdiepie@mail.com</div>
+                <div className="font-bold text-xl">{profile.email}</div>
               </div>
               <div className="flex justify-between gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div className="flex flex-col">
                   <div>Phone Number</div>
-                  <div className="font-bold text-xl">+62 8123-4567-89</div>
+                  <div className="font-bold text-xl">{profile.phones}</div>
                 </div>
-                <button className="text-primary">Manage</button>
+                <button className="text-primary">
+                  <Link href="/profile/manage-phone-number">Manage</Link>
+                </button>
               </div>
             </div>
           </div>
