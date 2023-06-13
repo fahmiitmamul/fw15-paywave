@@ -9,7 +9,7 @@ function Logout() {
     router.replace('../auth/login')
   }, [router])
   return (
-    <div className="btn btn-secondary normal-case shadow-xl" onClick={doLogout}>
+    <div onClick={doLogout} className="font-bold">
       Logout
     </div>
   )

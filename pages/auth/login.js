@@ -56,7 +56,7 @@ export default function Login() {
       const { data } = await axios.post('../api/login', form.toString())
       setLoading(false)
       if (data?.results?.token) {
-        router.push('/')
+        router.push('/dashboard')
       }
     } catch (err) {
       const msg = err.response?.data?.message

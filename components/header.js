@@ -33,7 +33,7 @@ export default function Header() {
             </div>
             <div className="flex flex-col gap-1">
               <div className="font-semibold">{profile.fullName}</div>
-              <div className="text-gray-600">+62 8139 3877 7946</div>
+              <div className="text-gray-600">{profile.email}</div>
             </div>
           </div>
           <div className="z-10">

@@ -1,6 +1,7 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'
+import TopUpModal from '@/components/topup-modal'
 
 export default function PersonalInfo() {
   return (
@@ -43,6 +44,8 @@ export default function PersonalInfo() {
         </div>
       </div>
       <Footer />
+      <input type="checkbox" id="topup-modal" className="modal-toggle" />
+      <TopUpModal />
     </>
   )
 }

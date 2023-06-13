@@ -9,7 +9,7 @@ import Footer from '@/components/footer'
 import Head from 'next/head'
 import TopUpModal from '@/components/topup-modal'
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getProfileAction } from '@/redux/actions/profile'
 import { withIronSessionSsr } from 'iron-session/next'
 import cookieConfig from '@/helpers/cookie-config'
@@ -24,6 +24,8 @@ export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
 }, cookieConfig)
 
 export default function Dashboard({ token }) {
+  const profile = useSelector((state) => state.profile.data)
+
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getProfileAction(token))
@@ -41,8 +43,10 @@ export default function Dashboard({ token }) {
           <div className="flex justify-between w-full rounded-2xl shadow-2xl h-[190px] bg-primary p-10">
             <div className="text-white">
               <div>Balance</div>
-              <div className="text-[40px] font-semibold">Rp120.000</div>
-              <div>+62 813-9387-7946</div>
+              <div className="text-[40px] font-semibold">
+                Rp{profile.balance}
+              </div>
+              <div>{profile.email}</div>
             </div>
             <div className="flex flex-col gap-5">
               <button className="flex justify-between items-center btn btn-primary rounded-xl normal-case hover:bg-white hover:text-black text-white bg-[#FFFFFF33] border-white">
