@@ -34,7 +34,7 @@ export default function Sidebar() {
               Top Up
             </label>
             <Link
-              href="/profile"
+              href="/profile/profile"
               className="flex gap-5 items-center text-xl cursor-pointer hover:text-primary"
             >
               <BsPersonCircle />
