@@ -27,6 +27,7 @@ export default function ChangePassword({ token }) {
   const [openConfirm, setOpenConfirm] = useState(false)
   const [message, setMessage] = useState('')
   const [errormessage, seterrormessage] = useState('')
+  const [loading, setLoading] = useState('')
 
   const validationSchema = Yup.object({
     currentPassword: Yup.string().required('Current Password is required !'),
@@ -48,6 +49,7 @@ export default function ChangePassword({ token }) {
 
   async function doSubmit(values) {
     try {
+      setLoading(true)
       const oldPassword = values.currentPassword
       const newPassword = values.newPassword
       const confirmPassword = values.confirmPassword
@@ -57,6 +59,7 @@ export default function ChangePassword({ token }) {
         confirmPassword,
       }).toString()
       const { data } = await http(token).patch('/profile/change-password', form)
+      setLoading(false)
       if (data) {
         setMessage('Change password successfully')
       }
@@ -66,6 +69,7 @@ export default function ChangePassword({ token }) {
         seterrormessage('Wrong old password')
       }
     }
+    setLoading(false)
   }
 
   setTimeout(() => {
@@ -92,7 +96,7 @@ export default function ChangePassword({ token }) {
             <div className="flex flex-col justify-center items-center gap-5">
               <div className="w-1/2">
                 {message && (
-                  <div className="alert alert-success text-lg text-white">
+                  <div className="m-auto alert alert-success text-lg max-w-xs text-white">
                     {message}
                   </div>
                 )}
@@ -246,7 +250,10 @@ export default function ChangePassword({ token }) {
                           className="btn btn-primary normal-case max-w-lg w-full text-white shadow-2xl"
                           disabled={isSubmitting}
                         >
-                          Change Password
+                          {loading && (
+                            <span className="loading loading-spinner loading-sm"></span>
+                          )}
+                          {!loading && 'Change Password'}
                         </button>
                       </div>
                     </form>

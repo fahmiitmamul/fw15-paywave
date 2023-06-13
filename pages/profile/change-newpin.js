@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react'
 import { withIronSessionSsr } from 'iron-session/next'
 import { useDispatch } from 'react-redux'
 import { getProfileAction } from '@/redux/actions/profile'
-import { useRouter } from 'next/router'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null
@@ -21,17 +20,18 @@ export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
 
 export default function ChangePin({ token }) {
   const [pin, setPin] = useState('')
+  const [message, setMessage] = useState('')
   const [errormessage, seterrormessage] = useState('')
   const dispatch = useDispatch()
-  const router = useRouter()
   const [loading, setLoading] = useState('')
 
   useEffect(() => {
     dispatch(getProfileAction(token))
   }, [dispatch, token])
 
-  if (errormessage) {
+  if (message || errormessage) {
     setTimeout(() => {
+      setMessage(false)
       seterrormessage(false)
     }, 3000)
   }
@@ -40,18 +40,18 @@ export default function ChangePin({ token }) {
     e.preventDefault()
     try {
       setLoading(true)
-      const oldPin = pin
-      let newPin
-      let confirmPin
+      let oldPin
+      let confirmPin = oldPin
+      const newPin = pin
       const form = new URLSearchParams({
         oldPin,
-        newPin,
         confirmPin,
+        newPin,
       }).toString()
       const { data } = await http(token).patch('/profile/change-pin', form)
       setLoading(false)
       if (data) {
-        router.push('/profile/change-newpin')
+        setMessage('Change PIN Successfully')
       }
     } catch (err) {
       const message = err.response?.data?.message
@@ -77,12 +77,17 @@ export default function ChangePin({ token }) {
               </div>
             </div>
             <div className="flex w-full mx-auto mt-10 flex-col justify-center items-center gap-8 ">
+              {message && (
+                <div className="alert alert-success max-w-md text-lg text-white">
+                  {message}
+                </div>
+              )}
               {errormessage && (
                 <div className="alert alert-error max-w-md text-lg text-white">
                   {errormessage}
                 </div>
               )}
-              <div className="font-bold text-lg">Enter your current pin</div>
+              <div className="font-bold text-lg">Enter your new pin</div>
               <form
                 onSubmit={doSubmit}
                 className="w-full flex flex-col gap-10 items-center justify-center"
@@ -95,7 +100,7 @@ export default function ChangePin({ token }) {
                   {loading && (
                     <span className="loading loading-spinner loading-sm"></span>
                   )}
-                  {!loading && 'Change PIN'}
+                  {!loading && 'Change Pin'}
                 </button>
               </form>
             </div>
