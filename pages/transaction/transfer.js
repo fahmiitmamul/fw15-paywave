@@ -1,5 +1,4 @@
 import { LuSearch } from 'react-icons/lu'
-import Picture from '../../public/picture.jpg'
 import Image from 'next/image'
 import Head from 'next/head'
 import Header from '@/components/header'
@@ -12,7 +11,7 @@ import { getProfileAction } from '@/redux/actions/profile'
 import { setMessage } from '@/redux/reducers/message'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
-import { setRecipient as setRecipientAction } from '@/redux/reducers/transfer'
+import { setRecipient as setRecipientAction } from '../../redux/reducers/transfer'
 import cookieConfig from '@/helpers/cookie-config'
 import http from '@/helpers/http'
 import { FiUser } from 'react-icons/fi'
@@ -57,7 +56,7 @@ export default function Transfer({ token }) {
 
   useEffect(() => {
     if (recipientRedux) {
-      router.push('/transfer/amount')
+      router.push('/transaction/input-amount')
     }
   }, [recipientRedux, router])
 
@@ -96,7 +95,10 @@ export default function Transfer({ token }) {
                 <>
                   {recipient.results.map((item) => (
                     <>
-                      <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
+                      <div
+                        onClick={() => dispatch(setRecipientAction(item))}
+                        className="cursor-pointer flex gap-5 items-center w-full border-2 rounded-lg p-5"
+                      >
                         <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
                           {!item.picture && (
                             <div className="w-12 h-12 bg-white border rounded flex justify-center items-center">
