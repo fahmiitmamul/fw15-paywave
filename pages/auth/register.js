@@ -12,7 +12,29 @@ import { RxEyeOpen } from 'react-icons/rx'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Person from '../../public/person.svg'
-import http from '@/helpers/http'
+import axios from 'axios'
+
+export const getServerSideProps = withIronSessionSsr(
+  async function getServerSideProps({ req, res }) {
+    const token = req.session?.token
+
+    if (token) {
+      res.setHeader('location', '/')
+      res.statusCode = 302
+      res.end()
+      return {
+        props: {
+          token,
+        },
+      }
+    }
+
+    return {
+      props: {},
+    }
+  },
+  cookieConfig
+)
 
 export default function Register() {
   const [successMessage, setSuccessMessage] = useState('')
@@ -38,15 +60,21 @@ export default function Register() {
       const email = values.email
       const password = values.password
       const form = new URLSearchParams({ username, email, password }).toString()
-      const data = await http().post('/auth/register', form)
+      const { data } = await axios.post('../api/register', form.toString())
       setLoading(false)
-      if (data) {
-        setSuccessMessage('Register Success !')
+      if (data?.results?.token) {
+        router.push('/auth/dashboard')
       }
     } catch (err) {
-      if (err) {
-        setErrorMessage('Register Failed ')
+      const msg = err.response?.data?.message
+
+      if (msg) {
+        setErrorMessage('Error register')
       }
+
+      setTimeout(() => {
+        setSuccessMessage(false)
+      }, 3000)
       setLoading(false)
     }
   }
