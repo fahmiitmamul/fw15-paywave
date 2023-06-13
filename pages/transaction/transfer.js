@@ -11,7 +11,11 @@ import { withIronSessionSsr } from 'iron-session/next'
 import { getProfileAction } from '@/redux/actions/profile'
 import { setMessage } from '@/redux/reducers/message'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
+import { setRecipient as setRecipientAction } from '@/redux/reducers/transfer'
 import cookieConfig from '@/helpers/cookie-config'
+import http from '@/helpers/http'
+import { FiUser } from 'react-icons/fi'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null
@@ -24,7 +28,37 @@ export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
 
 export default function Transfer({ token }) {
   const dispatch = useDispatch()
+  const [recipient, setRecipient] = React.useState({})
   const router = useRouter()
+  const [search, setSearch] = React.useState('')
+  const getUsers = React.useCallback(
+    async (page = 1, search = '') => {
+      const { data } = await http(token).get('/users', {
+        params: {
+          page,
+          search,
+        },
+      })
+      setRecipient(data)
+    },
+    [token]
+  )
+
+  useEffect(() => {
+    getUsers()
+  }, [getUsers])
+
+  useEffect(() => {
+    getUsers(1, search)
+  }, [getUsers, search])
+
+  const recipientRedux = useSelector((state) => state.transfer.user)
+
+  useEffect(() => {
+    if (recipientRedux) {
+      router.push('/transfer/amount')
+    }
+  }, [recipientRedux, router])
 
   useEffect(() => {
     dispatch(getProfileAction(token))
@@ -56,87 +90,35 @@ export default function Transfer({ token }) {
               </div>
             </div>
             <div className="flex flex-col gap-5 w-full h-[500px] overflow-scroll">
-              <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
-                <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                  <Image src={Picture} alt=""></Image>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <div className="font-bold">Samuel Suhi</div>
-                  <div className="text-gray-400">+62 813-8492-9994</div>
-                </div>
-              </div>
-              <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
-                <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                  <Image src={Picture} alt=""></Image>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <div className="font-bold">Samuel Suhi</div>
-                  <div className="text-gray-400">+62 813-8492-9994</div>
-                </div>
-              </div>
-              <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
-                <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                  <Image src={Picture} alt=""></Image>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <div className="font-bold">Samuel Suhi</div>
-                  <div className="text-gray-400">+62 813-8492-9994</div>
-                </div>
-              </div>
-              <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
-                <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                  <Image src={Picture} alt=""></Image>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <div className="font-bold">Samuel Suhi</div>
-                  <div className="text-gray-400">+62 813-8492-9994</div>
-                </div>
-              </div>
-              <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
-                <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                  <Image src={Picture} alt=""></Image>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <div className="font-bold">Samuel Suhi</div>
-                  <div className="text-gray-400">+62 813-8492-9994</div>
-                </div>
-              </div>
-              <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
-                <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                  <Image src={Picture} alt=""></Image>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <div className="font-bold">Samuel Suhi</div>
-                  <div className="text-gray-400">+62 813-8492-9994</div>
-                </div>
-              </div>
-              <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
-                <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                  <Image src={Picture} alt=""></Image>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <div className="font-bold">Samuel Suhi</div>
-                  <div className="text-gray-400">+62 813-8492-9994</div>
-                </div>
-              </div>
-              <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
-                <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                  <Image src={Picture} alt=""></Image>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <div className="font-bold">Samuel Suhi</div>
-                  <div className="text-gray-400">+62 813-8492-9994</div>
-                </div>
-              </div>
-              <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
-                <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                  <Image src={Picture} alt=""></Image>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <div className="font-bold">Samuel Suhi</div>
-                  <div className="text-gray-400">+62 813-8492-9994</div>
-                </div>
-              </div>
+              {recipient.results && (
+                <>
+                  {recipient.results.map((item) => (
+                    <>
+                      <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
+                        <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
+                          {!item.picture && (
+                            <div className="w-12 h-12 bg-white border rounded flex justify-center items-center">
+                              <FiUser size={35} />
+                            </div>
+                          )}
+                          {item.picture && (
+                            <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
+                              <Image
+                                src={item.picture}
+                                alt={item.fullName || item.email}
+                              ></Image>
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex flex-col gap-1.5">
+                          <div className="font-bold">{item.fullName}</div>
+                          <div className="text-gray-400">{item.email}</div>
+                        </div>
+                      </div>
+                    </>
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </div>
