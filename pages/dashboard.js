@@ -1,7 +1,7 @@
-import { FiArrowDown } from 'react-icons/fi'
+import { FiArrowDown, FiUser } from 'react-icons/fi'
 import { FiPlus } from 'react-icons/fi'
 import { FiArrowUp } from 'react-icons/fi'
-import Picture from '../public/picture.jpg'
+import { useState } from 'react'
 import Image from 'next/image'
 import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'
@@ -9,12 +9,14 @@ import Footer from '@/components/footer'
 import Head from 'next/head'
 import TopUpModal from '@/components/topup-modal'
 import { useEffect } from 'react'
+import Default from '../public/images.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProfileAction } from '@/redux/actions/profile'
 import { withIronSessionSsr } from 'iron-session/next'
 import cookieConfig from '@/helpers/cookie-config'
 import { useRouter } from 'next/router'
 import { setMessage } from '@/redux/reducers/message'
+import http from '@/helpers/http'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null
@@ -29,6 +31,8 @@ export default function Dashboard({ token }) {
   const profile = useSelector((state) => state.profile.data)
   const dispatch = useDispatch()
   const router = useRouter()
+  const [transactions, setTransaction] = useState([])
+  const [errorFetch, setErrorFetch] = useState('')
 
   useEffect(() => {
     dispatch(getProfileAction(token))
@@ -36,6 +40,20 @@ export default function Dashboard({ token }) {
       router.push('/auth/login')
       dispatch(setMessage('You have to login first !'))
     }
+
+    async function fetchHistoryTransaction() {
+      try {
+        const { data } = await http(token).get('/transactions?page=1&limit=5')
+        setTransaction(data.results)
+      } catch (err) {
+        const message = err.response?.data?.message
+        if (message) {
+          setErrorFetch('Message')
+        }
+      }
+    }
+
+    fetchHistoryTransaction()
   }, [dispatch, token, router])
 
   return (
@@ -132,55 +150,47 @@ export default function Dashboard({ token }) {
             </div>
             <div className="flex flex-col gap-8 w-full h-[468px] shadow-2xl rounded-2xl p-10">
               <div className="text-xl font-bold">Transaction History</div>
-              <div className="flex flex-col gap-10 w-full">
-                <div className="flex items-center w-full justify-between">
-                  <div className="flex gap-5">
-                    <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                      <Image src={Picture} alt=""></Image>
-                    </div>
-                    <div>
-                      <div className="font-semibold">Samuel Suhi</div>
-                      <div className="text-[#7A7886]">Accept</div>
-                    </div>
-                  </div>
-                  <div className="font-bold text-green-600">+Rp50.000</div>
-                </div>
-                <div className="flex items-center w-full justify-between">
-                  <div className="flex gap-5">
-                    <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                      <Image src={Picture} alt=""></Image>
-                    </div>
-                    <div>
-                      <div className="font-semibold">Netflix</div>
-                      <div className="text-[#7A7886]">Transfer</div>
-                    </div>
-                  </div>
-                  <div className="font-bold text-red-600">+Rp50.000</div>
-                </div>
-                <div className="flex items-center w-full justify-between">
-                  <div className="flex gap-5">
-                    <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                      <Image src={Picture} alt=""></Image>
-                    </div>
-                    <div>
-                      <div className="font-semibold">Christine</div>
-                      <div className="text-[#7A7886]">Accept</div>
-                    </div>
-                  </div>
-                  <div className="font-bold text-green-600">+Rp50.000</div>
-                </div>
-                <div className="flex items-center w-full justify-between">
-                  <div className="flex gap-5">
-                    <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                      <Image src={Picture} alt=""></Image>
-                    </div>
-                    <div>
-                      <div className="font-semibold">Robert Chandler</div>
-                      <div className="text-[#7A7886]">Topup</div>
+              <div className="flex flex-col gap-10 w-full overflow-scroll">
+                {transactions.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center w-full justify-between"
+                  >
+                    <div className="flex w-full gap-5">
+                      {item.type === 'TOP-UP' && (
+                        <>
+                          <div className="flex w-full justify-between">
+                            <div className="flex gap-5">
+                              <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
+                                {!item.recipient.picture && <FiUser />}
+                                {item.recipient.picture && (
+                                  <Image
+                                    src={item.recipient.picture}
+                                    alt=""
+                                    width={60}
+                                    height={60}
+                                  ></Image>
+                                )}
+                              </div>
+                              <div>
+                                <div className="font-semibold">
+                                  {item.recipient.fullName ||
+                                    item.recipient.email}
+                                </div>
+                                <div className="text-[#7A7886]">
+                                  {item.type}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="font-bold text-green-600">
+                              Rp{Number(item.amount).toLocaleString('id')}
+                            </div>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
-                  <div className="font-bold text-red-600">+Rp50.000</div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
