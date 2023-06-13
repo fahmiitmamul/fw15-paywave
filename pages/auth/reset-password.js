@@ -9,12 +9,14 @@ import { RxEyeClosed } from 'react-icons/rx'
 import { RxEyeOpen } from 'react-icons/rx'
 import { useState } from 'react'
 import * as Yup from 'yup'
+import http from '@/helpers/http'
 
 export default function ResetPassword() {
   const [open, setOpen] = useState(false)
+  const [errorMsg, seterrorMsg] = useState('')
+  const [successMsg, setsuccessMsg] = useState('')
 
   const validationSchema = Yup.object({
-    code: Yup.string().required('Code is required !'),
     email: Yup.string().required('Email is required !'),
     password: Yup.string().required('Password is required !'),
     confirmPassword: Yup.string().required('Confirm Password is required !'),
@@ -24,8 +26,26 @@ export default function ResetPassword() {
     setOpen(!open)
   }
 
-  function doSubmit(values) {
-    alert(JSON.stringify(values))
+  async function doSubmit(values) {
+    try {
+      const email = values.email
+      const password = values.password
+      const confirmPassword = values.confirmPassword
+      const form = new URLSearchParams({
+        email,
+        password,
+        confirmPassword,
+      }).toString()
+      const { data } = await http().post('/auth/reset-password', form)
+      if (data) {
+        setsuccessMsg('Password has been set successfully')
+      }
+    } catch (err) {
+      const message = err.response?.data?.message
+      if (message) {
+        seterrorMsg('Error reset password')
+      }
+    }
   }
 
   return (
@@ -57,9 +77,18 @@ export default function ResetPassword() {
             <div className="text-[#3A3D4299] tracking-wide">
               Please enter code to reset your password
             </div>
+            {errorMsg && (
+              <div className="alert alert-error text-xl text-white text-center">
+                {errorMsg}
+              </div>
+            )}
+            {successMsg && (
+              <div className="alert alert-success text-xl text-white text-center">
+                {successMsg}
+              </div>
+            )}
             <Formik
               initialValues={{
-                code: '',
                 email: '',
                 password: '',
                 confirmPassword: '',
@@ -80,28 +109,6 @@ export default function ResetPassword() {
                   <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                     <div className="flex flex-col gap-5">
                       <div className="flex flex-col gap-8">
-                        <div className="max-w-lg relative">
-                          <input
-                            type="text"
-                            name="code"
-                            id="code"
-                            value={values.code}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            className={`border-b-2 border-gray-300 focus:border-indigo-500 focus:outline-none w-full transition duration-300 ease-in-out px-8 py-1 ${
-                              touched.code && errors.code && 'border-b-red-500'
-                            }`}
-                            placeholder="Code"
-                          ></input>
-                          <Image src={Mail} alt="" className="absolute top-1" />
-                          {errors.code && touched.code && (
-                            <label htmlFor="code" className="label">
-                              <span className="label-text-alt text-error">
-                                {errors.code}
-                              </span>
-                            </label>
-                          )}
-                        </div>
                         <div className="max-w-lg relative">
                           <input
                             type="email"
@@ -208,7 +215,10 @@ export default function ResetPassword() {
                         className="btn btn-primary normal-case max-w-lg w-full text-white shadow-2xl"
                         disabled={isSubmitting}
                       >
-                        Reset Password
+                        {loading && (
+                          <span className="loading loading-spinner loading-sm"></span>
+                        )}
+                        {!loading && 'Reset Password'}
                       </button>
                     </div>
                   </form>

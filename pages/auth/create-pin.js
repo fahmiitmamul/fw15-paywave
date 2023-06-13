@@ -21,6 +21,7 @@ export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
 
 export default function CreatePin({ token }) {
   const profile = useSelector((state) => state.profile.data)
+  const [loading, setLoading] = useState(false)
   const [errMessage, seterrMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
   const [pin, setPin] = useState('')
@@ -30,12 +31,19 @@ export default function CreatePin({ token }) {
   async function doSubmit(e) {
     e.preventDefault()
     try {
+      setLoading(true)
       const email = profile.email
       const form = new URLSearchParams({ email: email, code: pin })
       const { data } = await http(token).post('/auth/set-pin', form)
+      setLoading(false)
+
       if (data) {
-        setSuccessMessage('Pin has been set')
+        setSuccessMessage('Pin set successfully')
       }
+
+      setTimeout(() => {
+        router.push('/auth/login')
+      }, 3000)
     } catch (err) {
       const errMsg = err.response?.data?.message
       if (errMsg === 'auth_pin_already_set') {
@@ -44,6 +52,7 @@ export default function CreatePin({ token }) {
       setTimeout(() => {
         seterrMessage(false)
       }, 3000)
+      setLoading(false)
     }
   }
 
@@ -104,7 +113,10 @@ export default function CreatePin({ token }) {
                 type="submit"
                 className="btn btn-primary normal-case max-w-sm w-full text-white shadow-2xl"
               >
-                Confirm
+                {loading && (
+                  <span className="loading loading-spinner loading-sm"></span>
+                )}
+                {!loading && 'Set Pin'}
               </button>
             </form>
           </div>

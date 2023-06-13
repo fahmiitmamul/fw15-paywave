@@ -10,6 +10,7 @@ import http from '@/helpers/http'
 
 export default function ForgotPassword() {
   const [successMsg, setSuccessMsg] = useState('')
+  const [loading, setLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
   const router = useRouter()
   const validationSchema = Yup.object({
@@ -18,9 +19,11 @@ export default function ForgotPassword() {
 
   async function doSubmit(values) {
     try {
+      setLoading(true)
       const email = values.email
       const form = new URLSearchParams({ email }).toString()
       const { data } = await http().post('/auth/forgot-password', form)
+      setLoading(false)
       if (data) {
         setSuccessMsg('Request to reset password has been sent')
       }
@@ -136,7 +139,10 @@ export default function ForgotPassword() {
                         className="btn btn-primary normal-case max-w-lg w-full text-white shadow-2xl"
                         disabled={isSubmitting}
                       >
-                        Send Link
+                        {loading && (
+                          <span className="loading loading-spinner loading-sm"></span>
+                        )}
+                        {!loading && 'Send Link'}
                       </button>
                     </div>
                   </form>

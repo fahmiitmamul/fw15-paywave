@@ -5,15 +5,15 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Lock from '../../public/lock.svg'
 import Mail from '../../public/mail.svg'
+import axios from 'axios'
+import * as Yup from 'yup'
+import cookieConfig from '@/helpers/cookie-config'
 import { Formik } from 'formik'
 import { RxEyeClosed } from 'react-icons/rx'
 import { RxEyeOpen } from 'react-icons/rx'
 import { useState } from 'react'
-import * as Yup from 'yup'
 import { useRouter } from 'next/router'
 import { withIronSessionSsr } from 'iron-session/next'
-import cookieConfig from '@/helpers/cookie-config'
-import axios from 'axios'
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
@@ -43,29 +43,33 @@ export default function Login() {
   const [message, setMessage] = useState('')
   const router = useRouter()
 
-  const doLogin = async (values) => {
-    setLoading(true)
-    const email = values.email
-    const password = values.password
-    const form = new URLSearchParams({
-      email,
-      password,
-    }).toString()
+  async function doLogin(values) {
+    try {
+      setLoading(true)
+      const email = values.email
+      const password = values.password
+      const form = new URLSearchParams({
+        email,
+        password,
+      }).toString()
 
-    const { data } = await axios.post('../api/login', form.toString())
-    setLoading(false)
-    if (data?.results?.token) {
-      router.push('/')
+      const { data } = await axios.post('../api/login', form.toString())
+      setLoading(false)
+      if (data?.results?.token) {
+        router.push('/')
+      }
+    } catch (err) {
+      const msg = err.response?.data?.message
+
+      if (msg.includes('wrong_password')) {
+        setMessage('Wrong credentials')
+      }
+
+      setTimeout(() => {
+        setMessage(false)
+      }, 3000)
+      setLoading(false)
     }
-    const msg = data.message
-
-    if (msg.includes('wrong_password')) {
-      setMessage('Wrong credentials')
-    }
-
-    setTimeout(() => {
-      setMessage(false)
-    }, 3000)
   }
 
   const validationSchema = Yup.object({
@@ -205,7 +209,7 @@ export default function Login() {
                       <button
                         type="submit"
                         className="btn btn-primary normal-case max-w-lg w-full text-white shadow-2xl"
-                        disabled={loading}
+                        disabled={isSubmitting}
                       >
                         {loading && (
                           <span className="loading loading-spinner loading-sm"></span>

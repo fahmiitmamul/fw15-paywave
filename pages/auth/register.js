@@ -53,7 +53,7 @@ export default function Register() {
 
   if (successMessage) {
     setTimeout(() => {
-      router.push('/login')
+      router.push('/auth/create-pin')
     }, 3000)
   }
 
