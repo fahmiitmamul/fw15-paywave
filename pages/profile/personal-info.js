@@ -2,8 +2,8 @@ import Footer from '@/components/footer'
 import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'
 import TopUpModal from '@/components/topup-modal'
-import { useSelector } from 'react-redux'
 import Link from 'next/link'
+import { useSelector } from 'react-redux'
 
 export default function PersonalInfo() {
   const profile = useSelector((state) => state.profile.data)
@@ -22,27 +22,29 @@ export default function PersonalInfo() {
                 support.
               </div>
             </div>
+            <div className="text-primary w-full flex justify-end">
+              <Link href="/profile/manage-profile">Manage profile</Link>
+            </div>
             <div className="flex flex-col gap-5 overflow-scroll">
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
-                <div>First Name</div>
-                <div className="font-bold text-xl">{profile.fullName}</div>
-              </div>
-              <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
-                <div>Last Name</div>
-                <div className="font-bold text-xl">{profile.fullName}</div>
+                <div>Full Name</div>
+                <div className="font-bold text-xl">
+                  {profile.fullName === null ? 'Not set' : profile.fullName}
+                </div>
               </div>
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div>Verified E-mail</div>
-                <div className="font-bold text-xl">{profile.email}</div>
+                <div className="font-bold text-xl">
+                  {profile.email === null ? 'Not set' : profile.email}
+                </div>
               </div>
               <div className="flex justify-between gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div className="flex flex-col">
                   <div>Phone Number</div>
-                  <div className="font-bold text-xl">{profile.phones}</div>
+                  <div className="font-bold text-xl">
+                    {profile.phones.length < 1 ? 'Not set' : profile.phones}
+                  </div>
                 </div>
-                <button className="text-primary">
-                  <Link href="/profile/manage-phone-number">Manage</Link>
-                </button>
               </div>
             </div>
           </div>

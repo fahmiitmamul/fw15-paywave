@@ -27,6 +27,7 @@ export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
 export default function Profile({ token }) {
   const profile = useSelector((state) => state.profile.data)
   const [selectedPicture, setSelectedPicture] = useState('')
+  const [loading, setLoading] = useState(false)
   const [pictureURI, setPictureURI] = useState('')
   const [message, setMessage] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
@@ -55,6 +56,7 @@ export default function Profile({ token }) {
   }
 
   const doSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault()
     const form = new FormData()
     if (selectedPicture) {
@@ -71,13 +73,14 @@ export default function Profile({ token }) {
         setMessage('Change profile photo successfully')
       }
       dispatch(getProfileAction(token))
+      setLoading(false)
     } catch (err) {
       const results = err.response?.data?.message
       if (results) {
         setErrorMsg('Error change photo')
       }
     }
-
+    setLoading(false)
     setSelectedPicture(false)
   }
 
@@ -128,12 +131,12 @@ export default function Profile({ token }) {
                     <input
                       type="file"
                       id="customFileInput"
-                      className="custom-file-input"
+                      className="custom-file-input cursor-pointer"
                       onChange={changePicture}
                     />
                     <label
                       htmlFor="customFileInput"
-                      className="custom-file-label"
+                      className="custom-file-label cursor-pointer"
                     >
                       Edit
                     </label>
@@ -144,7 +147,10 @@ export default function Profile({ token }) {
                     type="submit"
                     className="btn btn-primary normal-case text-white"
                   >
-                    Save Changes
+                    {loading && (
+                      <span className="loading loading-spinner loading-sm"></span>
+                    )}
+                    {!loading && 'Save Changes'}
                   </button>
                 )}
               </form>
