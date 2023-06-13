@@ -187,7 +187,38 @@ export default function Dashboard({ token }) {
                               </div>
                             </div>
                             <div className="font-bold text-green-600">
-                              Rp{Number(item.amount).toLocaleString('id')}
+                              + Rp{Number(item.amount).toLocaleString('id')}
+                            </div>
+                          </div>
+                        </>
+                      )}
+                      {item.type === 'TRANSFER' && (
+                        <>
+                          <div className="flex w-full justify-between">
+                            <div className="flex gap-5">
+                              <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
+                                {!item.recipient.picture && <FiUser />}
+                                {item.recipient.picture && (
+                                  <Image
+                                    src={item.recipient.picture}
+                                    alt=""
+                                    width={60}
+                                    height={60}
+                                  ></Image>
+                                )}
+                              </div>
+                              <div>
+                                <div className="font-semibold">
+                                  {item.recipient.fullName ||
+                                    item.recipient.email}
+                                </div>
+                                <div className="text-[#7A7886]">
+                                  {item.type}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="font-bold text-red-600">
+                              - Rp{Number(item.amount).toLocaleString('id')}
                             </div>
                           </div>
                         </>
