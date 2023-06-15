@@ -3,7 +3,7 @@ import { withIronSessionApiRoute } from 'iron-session/next'
 
 export default withIronSessionApiRoute(async function registerRoute(req, res) {
   const request = await fetch(
-    'https://cute-lime-goldfish-toga.cyclic.app/auth/register',
+    process.env.NEXT_PUBLIC_BACKEND_URL,
     {
       method: 'POST',
       body: new URLSearchParams(req.body).toString(),
