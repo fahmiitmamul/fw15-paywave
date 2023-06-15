@@ -7,7 +7,7 @@ const http = (token) => {
   }
   return axios.create({
     headers,
-    baseURL: 'https://cute-lime-goldfish-toga.cyclic.app',
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
   })
 }
 
