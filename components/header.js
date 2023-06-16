@@ -50,7 +50,7 @@ export default function Header() {
               </label>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-[500px] h-[500px]"
+                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box lg:w-[500px] lg:h-[500px]"
               >
                 <div className="flex flex-col gap-5 overflow-scroll">
                   <div className="flex gap-3 items-center p-5 rounded-lg shadow-lg border-2 border-gray-200">
