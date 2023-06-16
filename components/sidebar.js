@@ -10,7 +10,7 @@ import Link from 'next/link'
 export default function Sidebar() {
   return (
     <>
-      <div className="w-[270px] h-full rounded-2xl shadow-2xl ">
+      <div className="hidden xl:flex w-[270px] h-full rounded-2xl shadow-2xl ">
         <div className="flex flex-col justify-between w-full h-full px-8 py-8">
           <div className="flex justify-center flex-col gap-10">
             <Link

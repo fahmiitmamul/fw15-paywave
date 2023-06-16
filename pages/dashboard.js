@@ -7,6 +7,7 @@ import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'
 import Footer from '@/components/footer'
 import Head from 'next/head'
+import Default from '../public/images.png'
 import TopUpModal from '@/components/topup-modal'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -62,10 +63,10 @@ export default function Dashboard({ token }) {
         <title>Dashboard</title>
       </Head>
       <Header />
-      <div className="flex gap-10 w-full h-[800px] py-10 px-20">
+      <div className="flex gap-10 w-full xl:h-[800px]  xl:py-10 xl:px-20">
         <Sidebar />
         <div className="w-full flex flex-col gap-5">
-          <div className="flex justify-between w-full rounded-2xl shadow-2xl h-[190px] bg-primary p-10">
+          <div className="flex justify-between w-full rounded-2xl shadow-2xl xl:h-[190px] bg-primary p-10 flex-wrap">
             <div className="text-white">
               <div>Balance</div>
               <div className="text-[40px] font-semibold">
@@ -90,10 +91,10 @@ export default function Dashboard({ token }) {
               </label>
             </div>
           </div>
-          <div className="flex gap-10">
-            <div className="w-full h-[468px] shadow-2xl rounded-2xl p-10">
-              <div className="flex flex-col gap-14 w-full">
-                <div className="flex w-full justify-between">
+          <div className="flex gap-10 flex-wrap lg:flex-nowrap">
+            <div className="w-full xl:h-[468px] shadow-2xl rounded-2xl p-10">
+              <div className="flex flex-col gap-14">
+                <div className="flex w-full justify-between flex-wrap">
                   <div className="flex flex-col gap-2">
                     <div>
                       <FiArrowDown color="green" size={35} />
@@ -149,7 +150,6 @@ export default function Dashboard({ token }) {
                   </div>
                 </div>
               </div>
-              <div></div>
             </div>
             <div className="flex flex-col gap-8 w-full h-[468px] shadow-2xl rounded-2xl p-10">
               <div className="text-xl font-bold">Transaction History</div>
@@ -165,7 +165,11 @@ export default function Dashboard({ token }) {
                           <div className="flex w-full justify-between">
                             <div className="flex gap-5">
                               <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                                {!item.recipient.picture && <FiUser />}
+                                {!item.recipient.picture && (
+                                  <div>
+                                    <Image src={Default} alt=""></Image>
+                                  </div>
+                                )}
                                 {item.recipient.picture && (
                                   <Image
                                     src={item.recipient.picture}

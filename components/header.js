@@ -8,11 +8,11 @@ export default function Header() {
   const profile = useSelector((state) => state.profile.data)
   return (
     <>
-      <div className="flex justify-between items-center w-full h-[140px] rounded-2xl shadow-2xl p-12">
+      <div className="flex justify-between items-center w-full h-[140px] rounded-2xl shadow-2xl p-12 flex-wrap">
         <Link href="/" className="text-3xl font-bold text-primary">
           PayWave
         </Link>
-        <div className="flex justify-center items-center gap-14">
+        <div className="flex justify-center items-center gap-14 flex-wrap">
           <Link href="/profile/profile" className="flex gap-3">
             <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
               {profile.picture ? (
