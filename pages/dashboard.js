@@ -152,7 +152,17 @@ export default function Dashboard({ token }) {
               </div>
             </div>
             <div className="flex flex-col gap-8 w-full h-[468px] shadow-2xl rounded-2xl p-10">
-              <div className="text-xl font-bold">Transaction History</div>
+              <div className="flex w-full justify-between">
+                <div>
+                  <div className="text-xl font-bold">Transaction History</div>
+                </div>
+                <Link
+                  href="/transaction/history"
+                  className="text-primary font-bold"
+                >
+                  See All
+                </Link>
+              </div>
               <div className="flex flex-col gap-10 w-full overflow-scroll">
                 {transactions.map((item) => (
                   <div
