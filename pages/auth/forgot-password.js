@@ -70,8 +70,8 @@ export default function ForgotPassword() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center flex-auto w-1/2 bg-white">
-          <div className="w-1/2 flex flex-col gap-10">
+        <div className="flex flex-col justify-center items-center flex-auto w-1/2 px-5 bg-white">
+          <div className="flex flex-col gap-10 max-w-lg">
             <div className="text-2xl font-bold tracking-wide">
               Did You Forgot Your Password? Don&apos;t Worry, You Can Reset Your
               Password In a Minutes.
