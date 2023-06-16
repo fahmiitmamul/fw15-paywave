@@ -84,7 +84,7 @@ export default function Register() {
       <Head>
         <title>Register</title>
       </Head>
-      <div className="flex flex-auto w-full bg-primary bg-home bg-no-repeat bg-cover bg-bottom h-screen">
+      <div className="flex flex-auto w-full bg-primary bg-home bg-no-repeat bg-cover bg-bottom xl:h-screen">
         <div className="hidden lg:flex flex-col gap-10 flex-auto w-1/2 justify-center items-center">
           <div className="w-[60%] text-2xl text-white font-black">PayWave</div>
           <Image src={PhoneLogin} alt="" className="w-[50%]"></Image>
@@ -100,8 +100,8 @@ export default function Register() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center flex-auto w-1/2 bg-white">
-          <div className="w-1/2 flex flex-col gap-10">
+        <div className="flex flex-col justify-center items-center flex-auto w-1/2 bg-white px-5 h-screen sm:h-auto">
+          <div className="flex flex-col gap-10 max-w-lg">
             <div className="text-2xl font-bold tracking-wide">
               Start Accessing Banking Needs With All Devices and All Platforms
               With 30.000+ Users
@@ -131,7 +131,7 @@ export default function Register() {
               }) => {
                 return (
                   <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                    <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-5 max-w-lg justify-center">
                       <div className="flex flex-col gap-8">
                         {successMessage && (
                           <div className="alert alert-success text-lg text-center text-white">
