@@ -47,7 +47,12 @@ export default function Home({ token }) {
           <div className="text-[29px] font-bold text-white">PayWave</div>
           <div className="flex gap-10">
             {token ? (
-              <HomeLogout />
+              <>
+                <Link href="/dashboard" className="btn normal-case">
+                  Dashboard
+                </Link>
+                <HomeLogout />
+              </>
             ) : (
               <>
                 <Link

@@ -8,7 +8,7 @@ export default function Header() {
   const profile = useSelector((state) => state.profile.data)
   return (
     <>
-      <div className="flex justify-between items-center w-full h-[140px] rounded-2xl shadow-2xl p-12 flex-wrap">
+      <div className="flex justify-between items-center w-full h-[100px] lg:h-[140px] rounded-2xl shadow-2xl lg:p-12 px-10 flex-wrap">
         <Link href="/" className="text-3xl font-bold text-primary">
           PayWave
         </Link>
