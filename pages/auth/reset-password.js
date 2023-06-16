@@ -84,7 +84,7 @@ export default function ResetPassword() {
           </div>
         </div>
         <div className="flex flex-col justify-center items-center flex-auto w-1/2 bg-white">
-          <div className="w-1/2 flex flex-col gap-10">
+          <div className="flex flex-col gap-10 max-w-lg">
             <div className="text-2xl font-bold tracking-wide">
               Reset Password
             </div>
