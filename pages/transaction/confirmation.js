@@ -37,7 +37,12 @@ export default function Confirmation({ token }) {
       router.push('/auth/login')
       dispatch(setMessage('You have to login first !'))
     }
-  }, [dispatch, token, router])
+
+    if (!recipient) {
+      router.push('/dashboard')
+      dispatch(setMessage('You have to make transfer first !'))
+    }
+  }, [dispatch, token, router, recipient])
 
   return (
     <>

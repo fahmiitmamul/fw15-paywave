@@ -41,7 +41,12 @@ export default function TransferSuccess({ token }) {
       router.push('/auth/login')
       dispatch(setMessage('You have to login first !'))
     }
-  }, [dispatch, token, router])
+
+    if (!recipient) {
+      router.push('/dashboard')
+      dispatch(setMessage('You have to make transfer first !'))
+    }
+  }, [dispatch, token, router, recipient])
 
   async function goHome() {
     router.push('/dashboard')

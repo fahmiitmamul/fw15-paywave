@@ -51,7 +51,8 @@ export default function InputAmount({ token }) {
     }
 
     if (!recipient) {
-      router.replace('/transaction/transfer')
+      router.push('/dashboard')
+      dispatch(setMessage('You have to make transfer first !'))
     }
   }, [dispatch, token, router, recipient])
 
