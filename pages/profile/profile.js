@@ -87,10 +87,10 @@ export default function Profile({ token }) {
   return (
     <>
       <Header />
-      <div className="flex gap-10 w-full h-[800px] py-10 px-20">
+      <div className="flex gap-10 w-full h-[800px] lg:py-10 lg:px-20">
         <Sidebar />
         <div className="w-full flex flex-col gap-5">
-          <div className="flex flex-col gap-10 w-full rounded-2xl shadow-2xl h-full p-10">
+          <div className="flex flex-col gap-10 w-full rounded-2xl shadow-2xl h-full p-5 lg:p-10">
             <div className="flex flex-col gap-5 justify-center items-center">
               {message && (
                 <div className="alert alert-success text-lg text-white max-w-lg">
@@ -157,25 +157,28 @@ export default function Profile({ token }) {
 
               <div className="text-xl font-bold">{profile.fullName}</div>
               <div className="text-gray-500">{profile.email}</div>
-              <Link href="/profile/personal-info" className="w-[50%]">
+              <Link href="/profile/personal-info" className="lg:w-[50%] w-full">
                 <div className="flex justify-between items-center w-full p-7 bg-gray-300 rounded-lg cursor-pointer shadow-lg">
                   <div className="font-bold">Personal Information</div>
                   <FiArrowRight size={25} />
                 </div>
               </Link>
-              <Link href="/profile/change-password" className="w-[50%]">
+              <Link
+                href="/profile/change-password"
+                className="lg:w-[50%] w-full"
+              >
                 <div className="flex justify-between items-center w-full p-7 bg-gray-300 rounded-lg cursor-pointer shadow-lg">
                   <div className="font-bold">Change Password</div>
                   <FiArrowRight size={25} />
                 </div>
               </Link>
-              <Link href="/profile/change-pin" className="w-[50%]">
+              <Link href="/profile/change-pin" className="lg:w-[50%] w-full">
                 <div className="flex justify-between items-center w-full p-7 bg-gray-300 rounded-lg cursor-pointer shadow-lg">
                   <div className="font-bold">Change PIN</div>
                   <FiArrowRight size={25} />
                 </div>
               </Link>
-              <div className="w-[50%]">
+              <div className="lg:w-[50%] w-full">
                 <div className="flex justify-between items-center w-full p-7 bg-gray-300 rounded-lg cursor-pointer shadow-lg">
                   <Logout />
                 </div>

@@ -31,7 +31,7 @@ export default function Header() {
                 ></Image>
               )}
             </div>
-            <div className="flex flex-col gap-1">
+            <div className="flex-col gap-1 hidden md:flex">
               <div className="font-semibold">
                 {profile.fullName === null ? 'Name not set' : profile.fullName}
               </div>

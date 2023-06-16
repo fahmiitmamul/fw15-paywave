@@ -73,11 +73,11 @@ export default function ManageProfile({ token }) {
   return (
     <>
       <Header />
-      <div className="flex gap-10 w-full h-[800px] py-10 px-20">
+      <div className="flex gap-10 w-full h-[800px] lg:py-10 lg:px-20">
         <Sidebar />
         <div className="w-full flex flex-col gap-5">
           <div className="flex flex-col w-full rounded-2xl shadow-2xl h-full p-10">
-            <div className="flex flex-col gap-5 w-2/6">
+            <div className="flex flex-col gap-5 lg:w-2/6">
               <div className="font-bold text-2xl">Edit Profile</div>
               <div>Lets fill this form to edit your profile</div>
             </div>

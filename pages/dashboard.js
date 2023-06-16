@@ -1,4 +1,4 @@
-import { FiArrowDown, FiUser } from 'react-icons/fi'
+import { FiArrowDown } from 'react-icons/fi'
 import { FiPlus } from 'react-icons/fi'
 import { FiArrowUp } from 'react-icons/fi'
 import { useState } from 'react'
@@ -66,7 +66,7 @@ export default function Dashboard({ token }) {
       <div className="flex gap-10 w-full xl:h-[800px]  xl:py-10 xl:px-20">
         <Sidebar />
         <div className="w-full flex flex-col gap-5">
-          <div className="flex justify-between w-full rounded-2xl shadow-2xl xl:h-[190px] bg-primary p-10 flex-wrap">
+          <div className="flex justify-between w-full rounded-2xl shadow-2xl gap-10 xl:h-[190px] bg-primary p-10 flex-wrap">
             <div className="text-white">
               <div>Balance</div>
               <div className="text-[40px] font-semibold">
@@ -200,7 +200,11 @@ export default function Dashboard({ token }) {
                           <div className="flex w-full justify-between">
                             <div className="flex gap-5">
                               <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
-                                {!item.recipient.picture && <FiUser />}
+                                {!item.recipient.picture && (
+                                  <div>
+                                    <Image src={Default} alt=""></Image>
+                                  </div>
+                                )}
                                 {item.recipient.picture && (
                                   <Image
                                     src={item.recipient.picture}
