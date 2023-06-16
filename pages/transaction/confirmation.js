@@ -10,7 +10,7 @@ import { withIronSessionSsr } from 'iron-session/next'
 import { getProfileAction } from '@/redux/actions/profile'
 import cookieConfig from '@/helpers/cookie-config'
 import { useRouter } from 'next/router'
-import { setMessage } from '@/redux/reducers/message'
+import { clearMessage, setMessage } from '@/redux/reducers/message'
 import { FiUser } from 'react-icons/fi'
 import moment from 'moment'
 
@@ -30,6 +30,7 @@ export default function Confirmation({ token }) {
   const amount = useSelector((state) => state.transfer.amount)
   const notes = useSelector((state) => state.transfer.notes)
   const profile = useSelector((state) => state.profile.data)
+  const message = useSelector((state) => state.message.message)
 
   useEffect(() => {
     dispatch(getProfileAction(token))
@@ -42,7 +43,13 @@ export default function Confirmation({ token }) {
       router.push('/dashboard')
       dispatch(setMessage('You have to make transfer first !'))
     }
-  }, [dispatch, token, router, recipient])
+
+    if (message) {
+      setTimeout(() => {
+        dispatch(clearMessage())
+      }, 3000)
+    }
+  }, [dispatch, token, router, recipient, message])
 
   return (
     <>
@@ -54,6 +61,11 @@ export default function Confirmation({ token }) {
         <Sidebar />
         <div className="w-full flex flex-col gap-5">
           <div className="flex flex-col gap-10 w-full rounded-2xl shadow-2xl h-full p-5 lg:p-10">
+            {message && (
+              <div className="alert alert-error text-white font-bold">
+                Wrong PIN
+              </div>
+            )}
             <div className="font-bold text-2xl">Transfer To</div>
             <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
               {!recipient.picture && (

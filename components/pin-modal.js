@@ -1,11 +1,13 @@
 import { useRouter } from 'next/router'
 import PinInput from './pin-input'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import http from '@/helpers/http'
+import { setMessage } from '@/redux/reducers/message'
 
 export default function PinModal({ userToken }) {
   const [pins, setPin] = useState('')
+  const dispatch = useDispatch()
   const router = useRouter()
   const recipients = useSelector((state) => state.transfer.user)
   const recipientAmount = useSelector((state) => state.transfer.amount)
@@ -31,7 +33,7 @@ export default function PinModal({ userToken }) {
         router.push('/transaction/transfer-success')
       }
     } catch (err) {
-      console.log(err)
+      dispatch(setMessage('Wrong PIN'))
     }
   }
 
