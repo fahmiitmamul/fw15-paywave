@@ -1,4 +1,3 @@
-import Picture from '../../public/picture.jpg'
 import Image from 'next/image'
 import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'
@@ -46,10 +45,10 @@ export default function Confirmation({ token }) {
         <title>Confirmation</title>
       </Head>
       <Header />
-      <div className="flex gap-10 w-full h-[800px] py-10 px-20">
+      <div className="flex gap-10 w-full h-[800px] lg:py-10 lg:px-20">
         <Sidebar />
         <div className="w-full flex flex-col gap-5">
-          <div className="flex flex-col gap-10 w-full rounded-2xl shadow-2xl h-full p-10">
+          <div className="flex flex-col gap-10 w-full rounded-2xl shadow-2xl h-full p-5 lg:p-10">
             <div className="font-bold text-2xl">Transfer To</div>
             <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
               {!recipient.picture && (
