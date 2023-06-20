@@ -7,6 +7,7 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { useRouter } from 'next/router'
 import http from '@/helpers/http'
+import Logo from '../../public/logo.png'
 
 export default function ForgotPassword() {
   const [successMsg, setSuccessMsg] = useState('')

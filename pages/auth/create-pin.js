@@ -9,6 +9,7 @@ import { withIronSessionSsr } from 'iron-session/next'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProfileAction } from '@/redux/actions/profile'
 import { useRouter } from 'next/router'
+import Logo from '../../public/logo.png'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null

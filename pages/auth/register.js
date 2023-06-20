@@ -15,6 +15,7 @@ import Person from '../../public/person.svg'
 import axios from 'axios'
 import cookieConfig from '@/helpers/cookie-config'
 import { withIronSessionSsr } from 'iron-session/next'
+import Logo from '../../public/logo.png'
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
