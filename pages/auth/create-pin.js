@@ -82,6 +82,10 @@ export default function CreatePin({ token }) {
         <div className="flex flex-col justify-center items-center flex-auto w-1/2 bg-white">
           <div className="flex flex-col gap-10 justify-center items-center">
             <div className="px-5 flex flex-col gap-10 max-w-md">
+              <div className="lg:hidden flex gap-5 text-4xl font-bold">
+                <Image alt="" src={Logo} className="w-10 h-10"></Image>
+                <div>PayWave</div>
+              </div>
               <div className="text-2xl font-bold tracking-wide">
                 Secure Your Account, Your Wallet, and Your Data With 6 Digits
                 PIN That You Created Yourself.

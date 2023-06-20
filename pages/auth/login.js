@@ -16,6 +16,7 @@ import { useRouter } from 'next/router'
 import { withIronSessionSsr } from 'iron-session/next'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearMessage } from '@/redux/reducers/message'
+import Logo from '../../public/logo.png'
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
@@ -126,6 +127,10 @@ export default function Login() {
         </div>
         <div className="flex flex-col justify-center items-center flex-auto w-1/2 bg-white px-5 h-screen sm:h-auto">
           <div className="flex flex-col gap-10 max-w-lg">
+            <div className="lg:hidden flex gap-5 text-4xl font-bold">
+              <Image alt="" src={Logo} className="w-10 h-10"></Image>
+              <div>PayWave</div>
+            </div>
             <div className="text-2xl font-bold tracking-wide">
               Start Accessing Banking Needs With All Devices and All Platforms
               With 30.000+ Users

@@ -85,6 +85,10 @@ export default function ResetPassword() {
         </div>
         <div className="flex flex-col justify-center items-center flex-auto w-1/2 bg-white">
           <div className="flex flex-col gap-10 max-w-lg">
+            <div className="lg:hidden flex gap-5 text-4xl font-bold">
+              <Image alt="" src={Logo} className="w-10 h-10"></Image>
+              <div>PayWave</div>
+            </div>
             <div className="text-2xl font-bold tracking-wide">
               Reset Password
             </div>

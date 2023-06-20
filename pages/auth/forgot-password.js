@@ -72,6 +72,10 @@ export default function ForgotPassword() {
         </div>
         <div className="flex flex-col justify-center items-center flex-auto w-1/2 px-5 bg-white">
           <div className="flex flex-col gap-10 max-w-lg">
+            <div className="lg:hidden flex gap-5 text-4xl font-bold">
+              <Image alt="" src={Logo} className="w-10 h-10"></Image>
+              <div>PayWave</div>
+            </div>
             <div className="text-2xl font-bold tracking-wide">
               Did You Forgot Your Password? Don&apos;t Worry, You Can Reset Your
               Password In a Minutes.
