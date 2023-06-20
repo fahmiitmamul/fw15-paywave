@@ -42,7 +42,7 @@ export default function Home({ token }) {
       <Head>
         <title>PayWave</title>
       </Head>
-      <div className="bg-primary bg-home flex flex-col w-full h-[885px] bg-no-repeat bg-cover">
+      <div className="bg-primary bg-home flex flex-col w-full h-auto bg-no-repeat bg-cover">
         <div className="flex flex-wrap w-full h-auto justify-between gap-5 px-5 py-5 md:px-10 md:py-10">
           <div className="text-[29px] font-bold text-white">PayWave</div>
           <div className="flex gap-10">
@@ -71,11 +71,11 @@ export default function Home({ token }) {
             )}
           </div>
         </div>
-        <div className="flex w-full h-[800px]">
+        <div className="flex flex-wrap w-full h-auto overflow-hidden">
           <div className="flex flex-auto lg:justify-center lg:items-center">
             <div className="w-full lg:w-[50%] h-[75%]">
               <div className="flex flex-col gap-10 max-w-[474px] p-10 md:pl-10 lg:px-0">
-                <div className="sm:text-[60px] font-black text-white">
+                <div className="max-w-lg text-[40px] sm:text-[60px] font-black text-white">
                   Awesome App For Saving Time
                 </div>
                 <div className="text-white">
@@ -93,7 +93,7 @@ export default function Home({ token }) {
               </div>
             </div>
           </div>
-          <div className="hidden xl:flex flex-auto">
+          <div className="xl:flex flex-auto">
             <div className="w-full flex justify-center items-center">
               <Image src={Phone} alt="phone"></Image>
             </div>
@@ -109,12 +109,12 @@ export default function Home({ token }) {
       <div className="flex flex-col w-full h-auto px-5 lg:px-0 gap-20 bg-primary bg-home bg-no-repeat bg-cover">
         <div className="flex pt-20 flex-col">
           <div className="max-w-[670px] m-auto flex flex-col gap-10 text-white">
-            <div className="text-center text-xl lg:text-[60px] font-black">
+            <div className="text-center text-3xl lg:text-[60px] font-black">
               About the application.
             </div>
             <div className="text-center">
-              We have some great features from the application and it’s totally
-              free to use by all users around the world.
+              We have some great features from the application and it&apos;s
+              totally free to use by all users around the world.
             </div>
           </div>
         </div>
@@ -165,7 +165,7 @@ export default function Home({ token }) {
           </div>
         </div>
         <div className="flex flex-col px-10 lg:px-0 py-10 lg:py-0 gap-12 flex-auto bg-blue-50 w-full items-center justify-center">
-          <div className="md:text-[60px] font-bold max-w-[620px] text-[#3A3D42E5] text-center">
+          <div className="text-3xl md:text-[60px] font-bold max-w-[620px] text-[#3A3D42E5] text-center">
             All The <span className="text-primary">Great</span> PayWave
             Features.
           </div>
@@ -201,7 +201,7 @@ export default function Home({ token }) {
         </div>
       </div>
       <div className="flex flex-col justify-center px-10 lg:px-0 py-10 lg:py-0 items-center w-full h-auto lg:h-[1015px] bg-white gap-16">
-        <div className="md:text-[60px] font-black text-[#3A3D42E5] text-center">
+        <div className="text-3xl md:text-[60px] font-black text-[#3A3D42E5] text-center">
           What Users are <span className="text-primary">Saying.</span>
         </div>
         <div className="text-[#3A3D42E5] max-w-[567px] text-center">
