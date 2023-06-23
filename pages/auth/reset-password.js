@@ -11,6 +11,7 @@ import { useState } from 'react'
 import * as Yup from 'yup'
 import http from '@/helpers/http'
 import { useRouter } from 'next/router'
+import Logo from '../../public/logo.png'
 
 export default function ResetPassword() {
   const [open, setOpen] = useState(false)
