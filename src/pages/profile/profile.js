@@ -13,7 +13,7 @@ import { useState } from 'react'
 import http from '@/src/helpers/http'
 import cookieConfig from '@/src/helpers/cookie-config'
 import { withIronSessionSsr } from 'iron-session/next'
-import { getProfileAction } from '@/redux/actions/profile'
+import { getProfileAction } from '@/src/redux/actions/profile'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null

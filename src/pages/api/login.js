@@ -1,4 +1,4 @@
-import cookieConfig from '@/helpers/cookie-config'
+import cookieConfig from '@/src/helpers/cookie-config'
 import { withIronSessionApiRoute } from 'iron-session/next'
 
 export default withIronSessionApiRoute(async function loginRoute(req, res) {

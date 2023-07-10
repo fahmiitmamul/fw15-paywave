@@ -9,7 +9,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { withIronSessionSsr } from 'iron-session/next'
 import { useDispatch } from 'react-redux'
-import { getProfileAction } from '@/redux/actions/profile'
+import { getProfileAction } from '@/src/redux/actions/profile'
 import { Formik } from 'formik'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {

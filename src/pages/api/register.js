@@ -1,17 +1,14 @@
-import cookieConfig from '@/helpers/cookie-config'
+import cookieConfig from '@/src/helpers/cookie-config'
 import { withIronSessionApiRoute } from 'iron-session/next'
 
 export default withIronSessionApiRoute(async function registerRoute(req, res) {
-  const request = await fetch(
-    process.env.NEXT_PUBLIC_BACKEND_URL,
-    {
-      method: 'POST',
-      body: new URLSearchParams(req.body).toString(),
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    }
-  )
+  const request = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL, {
+    method: 'POST',
+    body: new URLSearchParams(req.body).toString(),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  })
   const response = await request.json()
   const token = response?.results?.token
   if (token) {
