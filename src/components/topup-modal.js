@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import http from '@/helpers/http'
+import http from '@/src/helpers/http'
 import { useDispatch } from 'react-redux'
-import { getProfileAction } from '@/redux/actions/profile'
+import { getProfileAction } from '@/src/redux/actions/profile'
 
 export default function TopUpModal({ userToken }) {
   const [values, setValues] = useState('')

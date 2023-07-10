@@ -9,8 +9,8 @@ import { RxEyeClosed } from 'react-icons/rx'
 import { RxEyeOpen } from 'react-icons/rx'
 import { useState } from 'react'
 import { withIronSessionSsr } from 'iron-session/next'
-import cookieConfig from '@/helpers/cookie-config'
-import http from '@/helpers/http'
+import cookieConfig from '@/src/helpers/cookie-config'
+import http from '@/src/helpers/http'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null

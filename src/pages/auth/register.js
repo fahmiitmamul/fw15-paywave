@@ -13,7 +13,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Person from '../../../public/person.svg'
 import axios from 'axios'
-import cookieConfig from '@/helpers/cookie-config'
+import cookieConfig from '@/src/helpers/cookie-config'
 import { withIronSessionSsr } from 'iron-session/next'
 import Logo from '../../../public/logo.png'
 

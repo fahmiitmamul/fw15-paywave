@@ -9,7 +9,7 @@ import { RxEyeClosed } from 'react-icons/rx'
 import { RxEyeOpen } from 'react-icons/rx'
 import { useState } from 'react'
 import * as Yup from 'yup'
-import http from '@/helpers/http'
+import http from '@/src/helpers/http'
 import { useRouter } from 'next/router'
 import Logo from '../../../public/logo.png'
 
