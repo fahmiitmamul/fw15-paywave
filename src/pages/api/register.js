@@ -2,7 +2,7 @@ import cookieConfig from '@/src/helpers/cookie-config'
 import { withIronSessionApiRoute } from 'iron-session/next'
 
 export default withIronSessionApiRoute(async function registerRoute(req, res) {
-  const request = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL, {
+  const request = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/auth/register', {
     method: 'POST',
     body: new URLSearchParams(req.body).toString(),
     headers: {
