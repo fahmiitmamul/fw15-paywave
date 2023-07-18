@@ -17,7 +17,7 @@ import { FaArrowRight } from 'react-icons/fa'
 import { withIronSessionSsr } from 'iron-session/next'
 import cookieConfig from '@/src/helpers/cookie-config'
 import HomeLogout from './auth/homelogout'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { getProfileAction } from '@/src/redux/actions/profile'
 
@@ -32,6 +32,15 @@ export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
 
 export default function Home({ token }) {
   const dispatch = useDispatch()
+  const CarouselItem = useRef()
+
+  const handlePrevBtnClick = () => {
+    CarouselItem.current.scrollLeft -= 600
+  }
+
+  const handleNextBtnClick = () => {
+    CarouselItem.current.scrollLeft += 600
+  }
 
   useEffect(() => {
     dispatch(getProfileAction(token))
@@ -106,7 +115,7 @@ export default function Home({ token }) {
         <Image src={Partner3} alt="partner-1"></Image>
         <Image src={Partner4} alt="partner-4"></Image>
       </div>
-      <div className="flex flex-col w-full h-auto px-5 lg:px-0 gap-20 bg-primary bg-home bg-no-repeat bg-cover">
+      <div className="flex flex-col w-full h-auto px-5 lg:px-0 gap-20 bg-gradient-to-r from-sky-500 to-indigo-500">
         <div className="flex pt-20 flex-col">
           <div className="max-w-[670px] m-auto flex flex-col gap-10 text-white">
             <div className="text-center text-3xl lg:text-[60px] font-black">
@@ -150,8 +159,8 @@ export default function Home({ token }) {
                 Easy Download
               </div>
               <div className="text-center text-[#3A3D42E5]">
-                PayWave is 100% totally free to use it’s now available on Google
-                Play Store and App Store.
+                PayWave is 100% totally free to use it&apos;s now available on
+                Google Play Store and App Store.
               </div>
             </div>
           </div>
@@ -166,8 +175,10 @@ export default function Home({ token }) {
         </div>
         <div className="flex flex-col px-10 lg:px-0 py-10 lg:py-0 gap-12 flex-auto bg-blue-50 w-full items-center justify-center">
           <div className="text-3xl md:text-[60px] font-bold max-w-[620px] text-[#3A3D42E5] text-center">
-            All The <span className="text-primary">Great</span> PayWave
-            Features.
+            <p>
+              All The <span className="text-primary">Great</span>
+            </p>
+            <p className="md:mt-10">PayWave Features.</p>
           </div>
           <div className="flex flex-col gap-10">
             <div className="flex flex-col gap-2 max-w-[620px] h-auto bg-white shadow-2xl rounded-2xl p-8">
@@ -184,7 +195,7 @@ export default function Home({ token }) {
                 <span className="text-primary">2.</span> Data Secured
               </div>
               <div className="text-[#3A3D42E5]">
-                All your data is secured properly in our system and it’s
+                All your data is secured properly in our system and it&apos;s
                 encrypted.
               </div>
             </div>
@@ -205,36 +216,90 @@ export default function Home({ token }) {
           What Users are <span className="text-primary">Saying.</span>
         </div>
         <div className="text-[#3A3D42E5] max-w-[567px] text-center">
-          We have some great features from the application and it’s totally free
-          to use by all users around the world.
+          We have some great features from the application and it&apos;s totally
+          free to use by all users around the world.
         </div>
         <div className="flex justify-center items-center gap-16 text-[#3A3D42E5]">
-          <div className="hidden xl:flex w-[60px] h-[60px] rounded-2xl bg-blue-50 p-3 shadow-2xl cursor-pointer">
+          <button
+            onClick={handlePrevBtnClick}
+            className="hidden xl:flex w-[60px] h-[60px] rounded-2xl bg-blue-50 p-3 shadow-2xl cursor-pointer"
+          >
             <FaArrowLeft size={35} color="#4942E4" />
-          </div>
-          <div className="flex flex-col text-center justify-center items-center gap-20 lg:max-w-[988px] h-auto py-10 lg:py-0 lg:h-[496px] rounded-lg bg-blue-50 shadow-2xl px-5 lg:px-20">
-            <div className="flex flex-col gap-5 items-center">
-              <div>
-                <Image src={Profile} alt=""></Image>
-              </div>
-              <div className="flex flex-col justify-center items-center">
-                <div className="font-black text-2xl">Alex Hansinburg</div>
-                <div>Designer</div>
+          </button>
+          <div
+            className="carousel carousel-center max-w-4xl rounded-2xl shadow-2xl"
+            ref={CarouselItem}
+          >
+            <div className="carousel-item">
+              <div className="flex flex-col text-center justify-center mr-5 items-center gap-20 lg:max-w-[988px] h-auto py-10 lg:py-0 lg:h-[496px] rounded-lg bg-blue-50 px-5 lg:px-20">
+                <div className="flex flex-col gap-5 items-center">
+                  <div>
+                    <Image src={Profile} alt=""></Image>
+                  </div>
+                  <div className="flex flex-col justify-center items-center">
+                    <div className="font-black text-2xl">Alex Hansinburg</div>
+                    <div>Designer</div>
+                  </div>
+                </div>
+                <div className="text-center">
+                  “This is the most outstanding app that I&apos;ve ever try in
+                  my live, this app is such an amazing masterpiece and it&apos;s
+                  suitable for you who is bussy with their bussiness and must
+                  transfer money to another person aut there. Just try this app
+                  and see the power!”
+                </div>
               </div>
             </div>
-            <div className="text-center">
-              “This is the most outstanding app that I’ve ever try in my live,
-              this app is such an amazing masterpiece and it’s suitable for you
-              who is bussy with their bussiness and must transfer money to
-              another person aut there. Just try this app and see the power!”
+            <div className="carousel-item">
+              <div className="flex flex-col text-center justify-center mr-5 items-center gap-20 lg:max-w-[988px] h-auto py-10 lg:py-0 lg:h-[496px] rounded-lg bg-blue-50 px-5 lg:px-20">
+                <div className="flex flex-col gap-5 items-center">
+                  <div>
+                    <Image src={Profile} alt=""></Image>
+                  </div>
+                  <div className="flex flex-col justify-center items-center">
+                    <div className="font-black text-2xl">Alex Hansinburg</div>
+                    <div>Designer</div>
+                  </div>
+                </div>
+                <div className="text-center">
+                  “This is the most outstanding app that I&apos;ve ever try in
+                  my live, this app is such an amazing masterpiece and it&apos;s
+                  suitable for you who is bussy with their bussiness and must
+                  transfer money to another person aut there. Just try this app
+                  and see the power!”
+                </div>
+              </div>
+            </div>
+            <div className="carousel-item">
+              <div className="flex flex-col text-center justify-center items-center gap-20 lg:max-w-[988px] h-auto py-10 lg:py-0 lg:h-[496px] rounded-lg bg-blue-50 px-5 lg:px-20">
+                <div className="flex flex-col gap-5 items-center">
+                  <div>
+                    <Image src={Profile} alt=""></Image>
+                  </div>
+                  <div className="flex flex-col justify-center items-center">
+                    <div className="font-black text-2xl">Alex Hansinburg</div>
+                    <div>Designer</div>
+                  </div>
+                </div>
+                <div className="text-center">
+                  “This is the most outstanding app that I&apos;ve ever try in
+                  my live, this app is such an amazing masterpiece and it&apos;s
+                  suitable for you who is bussy with their bussiness and must
+                  transfer money to another person aut there. Just try this app
+                  and see the power!”
+                </div>
+              </div>
             </div>
           </div>
-          <div className="hidden xl:flex w-[60px] h-[60px] rounded-2xl bg-blue-50 p-3 shadow-2xl cursor-pointer">
+          <button
+            onClick={handleNextBtnClick}
+            className="hidden xl:flex w-[60px] h-[60px] rounded-2xl bg-blue-50 p-3 shadow-2xl cursor-pointer"
+          >
             <FaArrowRight size={35} color="#4942E4" />
-          </div>
+          </button>
         </div>
       </div>
-      <div className="flex flex-col w-full lg:h-[438px] bg-primary p-5 lg:p-20 gap-10 text-white">
+      <div className="flex flex-col w-full lg:h-[438px] bg-gradient-to-r from-sky-500 to-indigo-500 p-5 lg:p-20 gap-10 text-white">
         <div className="text-[36px] font-bold">PayWave</div>
         <div className="max-w-[285px]">
           Simplify financial needs and saving much time in banking needs with
