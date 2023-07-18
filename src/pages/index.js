@@ -115,7 +115,7 @@ export default function Home({ token }) {
         <Image src={Partner3} alt="partner-1"></Image>
         <Image src={Partner4} alt="partner-4"></Image>
       </div>
-      <div className="flex flex-col w-full h-auto px-5 lg:px-0 gap-20 bg-gradient-to-r from-sky-500 to-indigo-500">
+      <div className="flex flex-col w-full h-auto px-5 lg:px-0 gap-20 bg-home bg-primary bg-no-repeat bg-cover">
         <div className="flex pt-20 flex-col">
           <div className="max-w-[670px] m-auto flex flex-col gap-10 text-white">
             <div className="text-center text-3xl lg:text-[60px] font-black">
@@ -299,7 +299,7 @@ export default function Home({ token }) {
           </button>
         </div>
       </div>
-      <div className="flex flex-col w-full lg:h-[438px] bg-gradient-to-r from-sky-500 to-indigo-500 p-5 lg:p-20 gap-10 text-white">
+      <div className="flex flex-col w-full lg:h-[438px] bg-primary p-5 lg:p-20 gap-10 text-white">
         <div className="text-[36px] font-bold">PayWave</div>
         <div className="max-w-[285px]">
           Simplify financial needs and saving much time in banking needs with
