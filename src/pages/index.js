@@ -227,7 +227,7 @@ export default function Home({ token }) {
             <FaArrowLeft size={35} color="#4942E4" />
           </button>
           <div
-            className="carousel carousel-center max-w-4xl rounded-2xl shadow-2xl"
+            className="carousel carousel-center max-w-[300px] lg:max-w-4xl rounded-2xl shadow-2xl"
             ref={CarouselItem}
           >
             <div className="carousel-item">
