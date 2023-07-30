@@ -230,7 +230,7 @@ export default function Home({ token }) {
             className="carousel carousel-center max-w-[300px] lg:max-w-4xl rounded-2xl shadow-2xl"
             ref={CarouselItem}
           >
-            <div className="carousel-item">
+            <div className="carousel-item max-w-[360px] lg:max-w-none">
               <div className="flex flex-col text-center justify-center mr-5 items-center gap-20 lg:max-w-[988px] h-auto py-10 lg:py-0 lg:h-[496px] rounded-lg bg-blue-50 px-5 lg:px-20">
                 <div className="flex flex-col gap-5 items-center">
                   <div>
@@ -250,7 +250,7 @@ export default function Home({ token }) {
                 </div>
               </div>
             </div>
-            <div className="carousel-item">
+            <div className="carousel-item max-w-[360px] lg:max-w-none">
               <div className="flex flex-col text-center justify-center mr-5 items-center gap-20 lg:max-w-[988px] h-auto py-10 lg:py-0 lg:h-[496px] rounded-lg bg-blue-50 px-5 lg:px-20">
                 <div className="flex flex-col gap-5 items-center">
                   <div>
@@ -270,7 +270,7 @@ export default function Home({ token }) {
                 </div>
               </div>
             </div>
-            <div className="carousel-item">
+            <div className="carousel-item max-w-[360px] lg:max-w-none">
               <div className="flex flex-col text-center justify-center items-center gap-20 lg:max-w-[988px] h-auto py-10 lg:py-0 lg:h-[496px] rounded-lg bg-blue-50 px-5 lg:px-20">
                 <div className="flex flex-col gap-5 items-center">
                   <div>
