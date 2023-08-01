@@ -18,6 +18,7 @@ import { useRouter } from 'next/router'
 import { setMessage } from '@/src/redux/reducers/message'
 import http from '@/src/helpers/http'
 import Link from 'next/link'
+import { clearTransferState } from '../redux/reducers/transfer'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null
@@ -55,6 +56,8 @@ export default function Dashboard({ token }) {
     }
 
     fetchHistoryTransaction()
+
+    dispatch(clearTransferState())
   }, [dispatch, token, router])
 
   return (
@@ -70,7 +73,15 @@ export default function Dashboard({ token }) {
             <div className="text-white">
               <div>Balance</div>
               <div className="text-[40px] font-semibold">
-                Rp{profile.balance == null ? ' 0' : profile.balance}
+                {profile.balance == null
+                  ? new Intl.NumberFormat('in-IN', {
+                      style: 'currency',
+                      currency: 'IDR',
+                    }).format(0)
+                  : new Intl.NumberFormat('in-IN', {
+                      style: 'currency',
+                      currency: 'IDR',
+                    }).format(profile.balance)}
               </div>
               <div>{profile.email}</div>
             </div>
@@ -200,7 +211,11 @@ export default function Dashboard({ token }) {
                               </div>
                             </div>
                             <div className="font-bold text-green-600">
-                              + Rp{Number(item.amount).toLocaleString('id')}
+                              +{' '}
+                              {new Intl.NumberFormat('in-IN', {
+                                style: 'currency',
+                                currency: 'IDR',
+                              }).format(item.amount)}
                             </div>
                           </div>
                         </>
@@ -235,7 +250,11 @@ export default function Dashboard({ token }) {
                               </div>
                             </div>
                             <div className="font-bold text-red-600">
-                              - Rp{Number(item.amount).toLocaleString('id')}
+                              -{' '}
+                              {new Intl.NumberFormat('in-IN', {
+                                style: 'currency',
+                                currency: 'IDR',
+                              }).format(item.amount)}
                             </div>
                           </div>
                         </>

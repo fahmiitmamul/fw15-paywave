@@ -80,6 +80,7 @@ export default function Confirmation({ token }) {
                     alt={recipient.fullName || recipient.email}
                     width={60}
                     height={60}
+                    className="w-full h-full object-cover"
                   ></Image>
                 </div>
               )}
@@ -92,15 +93,23 @@ export default function Confirmation({ token }) {
             <div className="flex flex-col gap-5 w-full h-[500px] overflow-scroll">
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div>Amount</div>
-                <div className="font-bold text-xl">Rp.{amount}</div>
+                <div className="font-bold text-xl">
+                  {new Intl.NumberFormat('in-IN', {
+                    style: 'currency',
+                    currency: 'IDR',
+                  }).format(amount)}
+                </div>
               </div>
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div>Balance Left</div>
                 <div className="font-bold text-xl">
-                  Rp.{amount - profile.balance}
+                  {new Intl.NumberFormat('in-IN', {
+                    style: 'currency',
+                    currency: 'IDR',
+                  }).format(profile.balance - amount)}
                 </div>
               </div>
-              <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
+              <div className="flex flex-col gap-2 border-gray-200 border-2 w-full md:h-[110px] shadow-md rounded-lg px-10 py-5">
                 <div>Date & Time</div>
                 <div className="font-bold text-xl">
                   {moment().format('MMMM Do YYYY, h:mm a')}

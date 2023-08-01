@@ -4,7 +4,7 @@ import Sidebar from '@/src/components/sidebar'
 import Footer from '@/src/components/footer'
 import Head from 'next/head'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { withIronSessionSsr } from 'iron-session/next'
 import { getProfileAction } from '@/src/redux/actions/profile'
 import cookieConfig from '@/src/helpers/cookie-config'
@@ -30,6 +30,11 @@ export default function InputAmount({ token }) {
   const router = useRouter()
   const recipient = useSelector((state) => state.transfer.user)
   const profile = useSelector((state) => state.profile.data)
+  const inputNumber = useRef()
+
+  function setInput(e) {
+    console.log(e.target.value)
+  }
 
   const validationSchema = Yup.object({
     amount: Yup.number().required('Amount is required !'),
@@ -66,7 +71,7 @@ export default function InputAmount({ token }) {
         <div className="w-full flex flex-col gap-5">
           <div className="flex flex-col gap-10 w-full rounded-2xl shadow-2xl h-full p-10">
             <div className="font-bold text-2xl">Transfer Money</div>
-            <div className="flex gap-5 items-center w-full h-[110px] shadow-md rounded-lg px-10 p-5">
+            <div className="flex flex-wrap gap-5 items-center w-full md:h-[110px] shadow-md rounded-lg px-10 p-5">
               {!recipient.picture && (
                 <div className="w-12 h-12 bg-white border rounded flex justify-center items-center">
                   <FiUser size={35} />
@@ -79,6 +84,7 @@ export default function InputAmount({ token }) {
                     alt={recipient.fullName || recipient.email}
                     width={60}
                     height={60}
+                    className="w-full h-full object-cover"
                   ></Image>
                 </div>
               )}
@@ -91,7 +97,7 @@ export default function InputAmount({ token }) {
               Type the amount you want to transfer and then press continue to
               the next steps.
             </div>
-            <div>
+            <div className="flex w-full justify-center items-center">
               <Formik
                 initialValues={{ amount: '', notes: '' }}
                 validationSchema={validationSchema}
@@ -111,20 +117,26 @@ export default function InputAmount({ token }) {
                       onSubmit={handleSubmit}
                       className="flex flex-col gap-5 w-full justify-center items-center"
                     >
-                      <div className="flex flex-col gap-5">
-                        <div className="flex flex-col gap-8">
-                          <div className="max-w-lg relative">
+                      <div className="flex flex-col gap-5 w-full justify-center items-center">
+                        <div className="flex flex-col gap-8 w-full justify-center items-center">
+                          <div className="relative">
                             <input
                               type="number"
                               name="amount"
                               id="amount"
+                              maxLength={3}
                               value={values.amount}
+                              ref={inputNumber}
                               onChange={handleChange}
+                              onKeyUp={(e) => console.log(e.target.value)}
                               onBlur={handleBlur}
-                              className={`border border-gray-400 rounded-lg py-10 text-4xl text-center ${
+                              className={`border border-gray-400 w-full rounded-lg py-10 text-4xl text-center ${
                                 touched.amount && errors.amount
                               }`}
-                              placeholder="0.00"
+                              placeholder={new Intl.NumberFormat('in-IN', {
+                                style: 'currency',
+                                currency: 'IDR',
+                              }).format(0)}
                             ></input>
                             {errors.amount && touched.amount && (
                               <label htmlFor="amount" className="label">
@@ -135,11 +147,15 @@ export default function InputAmount({ token }) {
                             )}
                           </div>
                           <div className="text-center">
-                            Rp{' '}
-                            <span className="font-bold">{profile.balance}</span>{' '}
+                            <span className="font-bold">
+                              {new Intl.NumberFormat('in-IN', {
+                                style: 'currency',
+                                currency: 'IDR',
+                              }).format(profile.balance)}
+                            </span>{' '}
                             Available
                           </div>
-                          <div className="max-w-lg relative">
+                          <div className="max-w-sm relative">
                             <input
                               type="text"
                               name="notes"

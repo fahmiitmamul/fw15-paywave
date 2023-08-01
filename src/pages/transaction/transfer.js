@@ -111,6 +111,7 @@ export default function Transfer({ token }) {
                                 src={item.picture}
                                 alt={item.fullName || item.email}
                                 width={60}
+                                className="w-full h-full object-cover"
                                 height={60}
                               ></Image>
                             </div>
@@ -126,6 +127,7 @@ export default function Transfer({ token }) {
                 </>
               )}
             </div>
+
             <div className="flex justify-center items-center gap-4">
               <button
                 onClick={() => getUsers(recipient.pageInfo?.page - 1, search)}
