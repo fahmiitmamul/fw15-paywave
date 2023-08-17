@@ -34,7 +34,7 @@ export default function InputAmount({ token }) {
   const profile = useSelector((state) => state.profile.data)
 
   const validationSchema = Yup.object({
-    amount: Yup.number().required('Amount is required !'),
+    amount: Yup.string().required('Amount is required !'),
     notes: Yup.string().required('Notes is required !'),
   })
 
