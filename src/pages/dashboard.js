@@ -227,15 +227,30 @@ export default function Dashboard({ token }) {
                               <div className="w-[52px] h-[52px] rounded-lg overflow-hidden">
                                 {!item.recipient.picture && (
                                   <div>
-                                    <Image src={Default} alt=""></Image>
+                                    <Image
+                                      src={Default}
+                                      alt="Recipient Picture"
+                                      width={100}
+                                      height={100}
+                                      style={{
+                                        objectFit: 'cover',
+                                        width: '100%',
+                                        height: '100%',
+                                      }}
+                                    ></Image>
                                   </div>
                                 )}
                                 {item.recipient.picture && (
                                   <Image
                                     src={item.recipient.picture}
-                                    alt=""
-                                    width={60}
-                                    height={60}
+                                    alt="Recipient Picture"
+                                    width={100}
+                                    height={100}
+                                    style={{
+                                      objectFit: 'cover',
+                                      width: '100%',
+                                      height: '100%',
+                                    }}
                                   ></Image>
                                 )}
                               </div>
