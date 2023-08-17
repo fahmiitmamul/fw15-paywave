@@ -94,19 +94,21 @@ export default function Confirmation({ token }) {
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div>Amount</div>
                 <div className="font-bold text-xl">
-                  {new Intl.NumberFormat('in-IN', {
+                  {new Intl.NumberFormat('id-ID', {
                     style: 'currency',
                     currency: 'IDR',
-                  }).format(amount)}
+                  }).format(parseFloat(amount.replace(/[^\d]/g, '')))}
                 </div>
               </div>
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full h-[110px] shadow-md rounded-lg px-10 p-5">
                 <div>Balance Left</div>
                 <div className="font-bold text-xl">
-                  {new Intl.NumberFormat('in-IN', {
+                  {new Intl.NumberFormat('id-ID', {
                     style: 'currency',
                     currency: 'IDR',
-                  }).format(profile.balance - amount)}
+                  }).format(
+                    profile.balance - parseFloat(amount.replace(/[^\d]/g, ''))
+                  )}
                 </div>
               </div>
               <div className="flex flex-col gap-2 border-gray-200 border-2 w-full md:h-[110px] shadow-md rounded-lg px-10 py-5">
