@@ -27,6 +27,7 @@ const AmountInput = ({ field, form, ...props }) => {
       {...props}
       onBlur={handleChange}
       className="border border-gray-400 w-full rounded-lg py-10 text-4xl text-center"
+      placeholder="Rp 0,00"
       onChange={handleChange}
     />
   )
