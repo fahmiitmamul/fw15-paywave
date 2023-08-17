@@ -15,6 +15,8 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { LuPencil } from 'react-icons/lu'
 import { setAmount, setNotes } from '@/src/redux/reducers/transfer'
+import { Field } from 'formik'
+import AmountInput from '@/src/components/amount-input'
 
 export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   const token = req.session.token || null
@@ -30,11 +32,6 @@ export default function InputAmount({ token }) {
   const router = useRouter()
   const recipient = useSelector((state) => state.transfer.user)
   const profile = useSelector((state) => state.profile.data)
-  const inputNumber = useRef()
-
-  function setInput(e) {
-    console.log(e.target.value)
-  }
 
   const validationSchema = Yup.object({
     amount: Yup.number().required('Amount is required !'),
@@ -108,8 +105,8 @@ export default function InputAmount({ token }) {
                   errors,
                   touched,
                   handleBlur,
-                  handleSubmit,
                   handleChange,
+                  handleSubmit,
                   isSubmitting,
                 }) => {
                   return (
@@ -120,24 +117,7 @@ export default function InputAmount({ token }) {
                       <div className="flex flex-col gap-5 w-full justify-center items-center">
                         <div className="flex flex-col gap-8 w-full justify-center items-center">
                           <div className="relative">
-                            <input
-                              type="number"
-                              name="amount"
-                              id="amount"
-                              maxLength={3}
-                              value={values.amount}
-                              ref={inputNumber}
-                              onChange={handleChange}
-                              onKeyUp={(e) => console.log(e.target.value)}
-                              onBlur={handleBlur}
-                              className={`border border-gray-400 w-full rounded-lg py-10 text-4xl text-center ${
-                                touched.amount && errors.amount
-                              }`}
-                              placeholder={new Intl.NumberFormat('in-IN', {
-                                style: 'currency',
-                                currency: 'IDR',
-                              }).format(0)}
-                            ></input>
+                            <Field name="amount" component={AmountInput} />
                             {errors.amount && touched.amount && (
                               <label htmlFor="amount" className="label">
                                 <span className="label-text-alt text-error">
